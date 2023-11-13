@@ -9,36 +9,18 @@ Vi ska Köra distans
 
 ## Teknologier
 
-Node, postgresql, react + typscript och docker
+Node, postgresql, react + typscript, nginx och docker
 Node: Express, PG (postgres), dotenv, nodemon.
 
 # Backend
 
-## Databas
-
-Databas: Postgresql
-
-### Tabeller
-
-se även endpoints under tasks
-
-- registrering
-- skapa ett foruminlägg
-- kommentarer för ett speficikt foruminlägg
-
-Alla foruminlägg som skapas måste gå att referera till den användare som skapat inlägget. Ett konto kan skapa flera inlägg. Men ett inlägg kan inte höra till flera olika konton.
-
-## Tasks
-
-Projektets uppgifter
-
-# Backend
-
-** Backendet är beroende av tabeller för att något meningsfullt ska kunna byggas **
+Node with express.
 
 ## Endpoints
 
-Vi bör skapa en lämplig struktur för våra endpoints. Jag (Pontus) föreslår att vi använder oss utav en middleware. Men föreslår också att alla enpoints ligger i samma fil även om den filen kommer bli stor och har en tydlig struktur inuti den filen.
+** Backendet är beroende av tabeller **
+
+Vi bör skapa en lämplig struktur för våra endpoints. Föreslår att vi använder oss utav en middleware. Men föreslår också att alla enpoints ligger i samma fil även om den filen kommer bli stor.
 
 - GET: Login `/login`
 - GET: Hämta alla foruminlägg `/forumposts`
@@ -56,11 +38,41 @@ Vi bör skapa en lämplig struktur för våra endpoints. Jag (Pontus) föreslår
 - DELETE: Ta bort foruminlägg + kommentarer `/deleteuserpost`
 - DELETE: Ta bort användarbunden kommentar `/deletecusercomment`
 
+### Tasks
+
+- N: Skapa endpoints för `/login`, `/register`, `/updateuser` och `/deleteme`
+
+- S: Skapa endpoints för `/createforumpost`, `/updateforumpost` och `/deleteuserpost`
+
+- P: Skapa endpoints för `/createusercomment`, `/updateusercomment` och `deleteusercomment`
+
+## Databasen
+
+Databas: Postgresql
+
+### Tabeller
+
+se även endpoints under tasks
+
+- registrering
+- skapa ett foruminlägg
+- kommentarer för ett speficikt foruminlägg
+
+Alla foruminlägg som skapas måste gå att referera till den användare som skapat inlägget. Ett konto kan skapa flera inlägg. Men ett inlägg kan inte höra till flera olika konton.
+
+En kommententar kan bara skapas om det finns ett tillhörande inlägg. En användare kan kommentera på flera olika inlägg
+
+#### Tasks
+
+- N: Skapar registreringstabellen
+- S: Skapar tabellen för foruminlägg och mellantabell om det behövs
+- P: Skapar kommentarstabellen.
+
 # Frontend
 
 # Konfigurering
 
-## NGINX
+### NGINX
 
 Skapa en Dockerfile i web mappen
 
