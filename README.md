@@ -3,6 +3,10 @@
 Registrerade användare ska kunna redigera sina personuppgifter som uppgavs vid registrering samt skapa ett foruminlägg.
 Det ska även gå att redigera inlägg som användaren skapat.
 
+## Plannering
+
+Vi ska Köra distans
+
 ## Teknologier
 
 Node, postgresql, react + typscript
