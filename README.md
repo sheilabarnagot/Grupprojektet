@@ -42,7 +42,7 @@ Vi bör skapa en lämplig struktur för våra endpoints. Föreslår att vi anvä
 
 - S: Skapa endpoints för `/createforumpost`, `/updateforumpost` och `/deleteuserpost` []
 
-P:
+- P:
 
 - Skapa endpoints för `/createusercomment`, `/updateusercomment` och `deleteusercomment`
   []
