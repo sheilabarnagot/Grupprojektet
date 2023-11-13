@@ -16,7 +16,7 @@ Node: Express, PG (postgres), dotenv, nodemon.
 
 Node with express.
 
-## Endpoints
+### Endpoints
 
 Vi bör skapa en lämplig struktur för våra endpoints. Föreslår att vi använder oss utav en middleware så att index.js håller sig ren och fin. Men föreslår också att alla endpoints ligger i samma fil även om den filen kan bli stor.
 
