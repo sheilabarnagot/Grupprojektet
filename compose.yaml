@@ -12,8 +12,9 @@ services:
       - "8080:80"
   database:
     image: postgres
+    restart: always
     environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: example
     healthcheck:
       interval: 1s
       test: "pg_isready --username=postgres"
