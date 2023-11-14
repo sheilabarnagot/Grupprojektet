@@ -74,7 +74,7 @@ En kommententar kan bara skapas om det finns ett tillhörande inlägg. En använ
 
 ### Tasks
 
-Installera react-router-dom `npm i react-router-dom` []
+Installera react-router-dom `npm i react-router-dom` + skapa navbar [x]
 
 N:
 
@@ -83,6 +83,7 @@ N:
 S:
 
 - Skapa sidan för kontoinformation och formuläret för att redigera sitt konto. []
+- Hitta en logga från te.x https://www.iconfinder.com/
 
 P:
 
