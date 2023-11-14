@@ -1,14 +1,23 @@
 services:
   backend:
-    build: node
+    build: backend
+    depends_on:
+      database:
+        condition: service_healthy
     ports:
       - "3000:3000"
-  web:
-  image: nginx
-  volumes:
-    - ./templates:/etc/nginx/templates
-  ports:
-    - "8080:80"
-  environment:
-    - NGINX_HOST=foobar.com
-    - NGINX_PORT=80
+  frontend:
+    build: web
+    ports:
+      - "8080:80"
+  database:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    healthcheck:
+      interval: 1s
+      test: "pg_isready --username=postgres"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
