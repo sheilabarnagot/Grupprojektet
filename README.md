@@ -79,11 +79,12 @@ Installera react-router-dom `npm i react-router-dom` + skapa navbar [x]
 N:
 
 - Skapa loginsidan och loginformulär []
+- Hitta en logga från te.x https://www.iconfinder.com/
 
 S:
 
 - Skapa sidan för kontoinformation och formuläret för att redigera sitt konto. []
-- Hitta en logga från te.x https://www.iconfinder.com/
+- Konfigurera tailwind css https://tailwindcss.com/docs/guides/vite []
 
 P:
 
