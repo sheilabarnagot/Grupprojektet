@@ -101,7 +101,7 @@ P: Byt namn på web servicen till frontend i compose.yaml och Skapa sedan en Doc
 
 ## Postgres
 
-Lägg till postgres som service i compose.yaml och skapa från `image`.
+Lägg till postgres som service i compose.yaml och skapa från `image`. []
 
 Ordna med miljövariabler.
 
