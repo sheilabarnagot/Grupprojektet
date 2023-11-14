@@ -54,8 +54,6 @@ Databas: Postgresql
 
 ### Tabeller
 
-se även endpoints under tasks
-
 - registrering
 - skapa ett foruminlägg
 - kommentarer för ett speficikt foruminlägg
