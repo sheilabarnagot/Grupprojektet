@@ -86,7 +86,7 @@ S:
 
 P:
 
-- Konfigurera `React Bootstrap` []
+- Konfigurera `React Bootstrap` [x]
 - Skapa sidan för foruminlägg []
 
 # Konfigurering
