@@ -3,7 +3,7 @@ services:
     build: backend
     depends_on:
       database:
-      condition: service_healthy
+        condition: service_healthy
     ports:
       - "3000:3000"
   frontend:
@@ -14,7 +14,7 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: example
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
     healthcheck:
       interval: 1s
       test: "pg_isready --username=postgres"
