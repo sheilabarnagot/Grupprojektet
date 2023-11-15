@@ -60,11 +60,11 @@ Vi bör skapa en lämplig struktur för våra endpoints. Föreslår att vi anvä
 
 - N: Skapa endpoints för `/deleteuserpost` `/updateuser`, `/updateforumpost` och `/deleteme` []
 
-- S: Skapa endpoints för `/createforumpost`,`/login`, `/register`,[]
+- S: Skapa endpoints för `/createusercomment`,`/login`, `/register`,[]
 
 - P:
 
-- Skapa endpoints för `/createusercomment`, `/updateusercomment` och `deleteusercomment`
+- Skapa endpoints för `/createforumpost`, `/updateusercomment` och `deleteusercomment`
   []
 - Skapa middleware för våra endpoints. [x]
 
