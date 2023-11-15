@@ -7,7 +7,7 @@ services:
     environment:
       - PGURI=${CONNECTION_STRING_DOCKER}
     ports:
-      - "3000:3000"
+      - "8000:8000"
   frontend:
     build: web
     ports:
@@ -17,6 +17,8 @@ services:
     restart: always
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5433:5432"
     healthcheck:
       interval: 1s
       test: "pg_isready --username=postgres"

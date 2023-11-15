@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 8000;
+const port = process.env.EXPRESS_PORT_LOCAL;
 
 const router = require("./endpoints");
 
@@ -17,5 +17,7 @@ app.post("/name", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(
+    `Example app listening at http://localhost:"3000_LOCAL" || "8000_DOCKER"`
+  );
 });

@@ -5,7 +5,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const client = new Client({
-  connectionString: process.env.CONNECTION_STRING_DOCKER,
+  connectionString: process.env.CONNECTION_STRING_LOCAL,
+  port: 5433,
 });
 
 client.connect(function (err) {
@@ -22,9 +23,25 @@ router.get("/users", async (req, res) => {
     text: "select * from users;",
   };
 
-  const resa = await client.query(query);
-  res.json(resa.rows);
-  console.log(resa.rows);
+  const response = await client.query(query);
+  res.json(response.rows);
+  console.log(response.rows);
+});
+router.get("/usercomment", async (req, res) => {
+  const query = {
+    text: `SELECT users.username, posts.postcontent, comments.commentcontent FROM users
+    JOIN posts ON users.userid = posts.userid
+    JOIN comments ON posts.postid = comments.postid
+    JOIN UserComment ON users.userid = UserComment.userid
+    AND comments.commentid = UserComment.CommentID
+    WHERE posts.postid = $1
+    AND users.userid = $2;`,
+    values: [1, 1],
+  };
+
+  const response = await client.query(query);
+  res.json(response.rows);
+  console.log(response.rows);
 });
 
 module.exports = router;

@@ -12,6 +12,26 @@ Vi ska Köra distans
 Node, postgresql, react + typscript, nginx och docker
 Node: Express, PG (postgres), dotenv, nodemon.
 
+# Docker
+
+För att komma igång att utveckla med docker.
+
+### .env
+
+Lägg respektive .env fil i rätt mapp.
+
+### Bygg en docker image
+
+För att bygga och starta docker behöver .env variablen `CONNECTION_STRING_DOCKER` vara satt som connectionString i `backend/endpoints.js`. Ändra även porten i index.js till 8000 om den inte redan är satt.
+
+1. Stå i Mappen `/path/to/Grupprojektet``
+2. `docker compose build`
+3. `docker compose up`
+
+Nu är allt uppe och körs via docker.
+
+För att sedan kunna utveckla lokalt mot databasen behöver vi `byta port` till `3000` i index.js samt att vi behöver ändra `connectionString` till .env variabeln till `CONNECTION_STRING_LOCAL`.
+
 # Backend
 
 Node with express.
@@ -22,7 +42,7 @@ Vi bör skapa en lämplig struktur för våra endpoints. Föreslår att vi anvä
 
 - GET: Login `/login`
 - GET: Hämta alla foruminlägg `/forumposts`
-- GET: Hämta alla kommentarer till speficika foruminlägg `postcomment`
+- GET: Hämta alla kommentarer till speficika foruminlägg `/postcomment`
 
 - POST: Registrering `/register`
 - POST: Skapa foruminlägg `/createforumpost`
@@ -38,15 +58,15 @@ Vi bör skapa en lämplig struktur för våra endpoints. Föreslår att vi anvä
 
 ### Tasks
 
-- N: Skapa endpoints för `/login`, `/register`, `/updateuser` och `/deleteme` []
+- N: Skapa endpoints för `/deleteuserpost` `/updateuser`, `/updateforumpost` och `/deleteme` []
 
-- S: Skapa endpoints för `/createforumpost`, `/updateforumpost` och `/deleteuserpost` []
+- S: Skapa endpoints för `/createforumpost`,`/login`, `/register`,[]
 
 - P:
 
 - Skapa endpoints för `/createusercomment`, `/updateusercomment` och `deleteusercomment`
   []
-- Skapa middleware för våra endpoints. []
+- Skapa middleware för våra endpoints. [x]
 
 ## Databasen
 
@@ -101,7 +121,7 @@ P: Byt namn på web servicen till frontend i compose.yaml och Skapa sedan en Doc
 
 ## Postgres
 
-Lägg till postgres som service i compose.yaml och skapa från `image`. []
+Lägg till postgres som service i compose.yaml och skapa från `image`. [x]
 
 Ordna med miljövariabler.
 
