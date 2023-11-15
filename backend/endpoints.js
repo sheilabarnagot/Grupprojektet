@@ -5,8 +5,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const client = new Client({
-  connectionString: process.env.CONNECTION_STRING_DOCKER,
-  //port: 5433,
+  connectionString: process.env.CONNECTION_STRING_LOCAL,
+  port: 5433,
 });
 
 client.connect(function (err) {
@@ -27,6 +27,28 @@ router.get("/users", async (req, res) => {
   res.json(response.rows);
   console.log(response.rows);
 });
+
+// post & get forum post(s)
+
+router.post("/createpost", async (req, res) => {
+  const query = {
+    text: `INSERT INTO posts (userid, title, postcontent, topic ) VALUES ($1, $2, $3, $4) RETURNING *;`,
+    values: [1, req.body.title, req.body.postcomment, req.body.topic],
+  };
+  const response = await client.query(query);
+  res.send(response);
+});
+
+router.get("/posts", async (req, res) => {
+  const query = {
+    text: "select * from posts;",
+  };
+
+  const response = await client.query(query);
+  res.json(response.rows);
+  console.log(response.rows);
+});
+
 router.get("/usercomment", async (req, res) => {
   const query = {
     text: `SELECT users.username, posts.postcontent, comments.commentcontent FROM users

@@ -1,3 +1,5 @@
+# Skapat tillsammans med chatgpt
+
 CREATE TABLE users (
 userid SERIAL PRIMARY KEY,
 first_name VARCHAR(50),
@@ -12,6 +14,7 @@ postid SERIAL PRIMARY KEY,
 userid INTEGER REFERENCES users(userid),
 title VARCHAR(255),
 postcontent TEXT
+topic VARCHAR(255)
 );
 
 CREATE TABLE comments (
