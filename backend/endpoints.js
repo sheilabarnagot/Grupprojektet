@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const client = new Client({
-  connectionString: "postgres://postgres:secret12345@database/postgres",
+  connectionString: process.env.CONNECTION_STRING,
 });
 
 client.connect(function (err) {
@@ -15,6 +15,16 @@ client.connect(function (err) {
 
 router.get("/hello", (req, res) => {
   res.send("Hello World!");
+});
+
+router.get("/users", async (req, res) => {
+  const query = {
+    text: "select * from users;",
+  };
+
+  const resa = await client.query(query);
+  res.json(resa.rows);
+  console.log(res.rows);
 });
 
 module.exports = router;

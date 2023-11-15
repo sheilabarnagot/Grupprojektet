@@ -16,7 +16,7 @@ services:
     image: postgres
     restart: always
     environment:
-      - POSTGRES_PASSWORD=secret12345
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     healthcheck:
       interval: 1s
       test: "pg_isready --username=postgres"
