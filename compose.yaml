@@ -5,7 +5,7 @@ services:
       database:
         condition: service_healthy
     environment:
-      - PGURI=postgres://postgres:secret12345@database:5432/postgres
+      - PGURI=${CONNECTION_STRING_DOCKER}
     ports:
       - "3000:3000"
   frontend:
