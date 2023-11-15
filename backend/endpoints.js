@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const client = new Client({
-  connectionString: process.env.CONNECTION_STRING,
+  connectionString: process.env.CONNECTION_STRING_DOCKER,
 });
 
 client.connect(function (err) {
@@ -24,7 +24,7 @@ router.get("/users", async (req, res) => {
 
   const resa = await client.query(query);
   res.json(resa.rows);
-  console.log(res.rows);
+  console.log(resa.rows);
 });
 
 module.exports = router;
