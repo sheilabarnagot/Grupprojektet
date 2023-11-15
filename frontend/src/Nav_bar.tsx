@@ -5,6 +5,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 export const Nav_bar = () => {
   const [darkMode, setDarkMode] = useState("dark");
@@ -24,7 +25,9 @@ export const Nav_bar = () => {
           className="bg-body-tertiary w-100"
         >
           <Container id="navbar-Nav_bar" fluid>
-            <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+            <Navbar.Brand href="#">
+              <NavLink to="/">CodeForum</NavLink>
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
 
             <Navbar.Collapse id="navbarScroll">
@@ -33,11 +36,23 @@ export const Nav_bar = () => {
                 style={{ maxHeight: "100px" }}
                 navbarScroll
               >
-                <Nav.Link href="#action1">Home</Nav.Link>
+                <Nav.Link href="#action1">
+                  <NavLink to="/">home</NavLink>
+                </Nav.Link>
                 <Nav.Link href="#action2">Link</Nav.Link>
-                <NavDropdown title="Settings" id="navbarScrollingDropdown">
-                  <NavDropdown.Item href="#action3">User</NavDropdown.Item>
-                  <NavDropdown.Item href="#action4">Post</NavDropdown.Item>
+                <NavDropdown title="Actions" id="navbarScrollingDropdown">
+                  <NavDropdown.Item href="#action4">
+                    <NavLink to="/createpost">
+                      <NavDropdown.Item />
+                      Create post
+                    </NavLink>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="#action3">
+                    My created posts
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="#action3">
+                    My comments
+                  </NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#action5">
                     <Button onClick={toggleDarkMode} variant="outline-primary">
@@ -46,7 +61,7 @@ export const Nav_bar = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link href="#" disabled>
-                  Link
+                  User settings
                 </Nav.Link>
               </Nav>
               <Form className="d-flex">
