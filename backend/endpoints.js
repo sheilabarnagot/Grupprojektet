@@ -5,8 +5,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const client = new Client({
-  connectionString: process.env.CONNECTION_STRING_LOCAL,
-  port: 5433,
+  connectionString: process.env.CONNECTION_STRING_DOCKER,
+  //port: 5433,
 });
 
 client.connect(function (err) {
