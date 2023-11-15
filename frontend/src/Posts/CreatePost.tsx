@@ -2,9 +2,20 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 export const CreatePost = () => {
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(e.target);
+    const response = await fetch("http://localhost:5000/api/posts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: e.target[0].value,
+        topic: e.target[1].value,
+        content: e.target[2].value,
+      }),
+    });
+    const result = await response.json();
+
+    console.log(result);
   };
 
   return (
