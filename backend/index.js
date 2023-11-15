@@ -1,9 +1,9 @@
 const express = require("express");
 const app = express();
-const port = process.env.EXPRESS_PORT_DOCKER;
-const router = require("./endpoints");
 const dotenv = require("dotenv");
 dotenv.config();
+const port = process.env.EXPRESS_PORT_DOCKER;
+const router = require("./endpoints");
 
 app.use(express.json());
 
