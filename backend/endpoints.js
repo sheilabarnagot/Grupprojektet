@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Client } = require('pg');
 const dotenv = require('dotenv');
 const query = require('./queries');
+const cors = require('cors');
 
 dotenv.config();
 
@@ -38,7 +39,7 @@ router.post('/createforumpost', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const { username, pasword } = req.body;
+    const { username, password } = req.body;
 
     const query = {
       text: 'SELECT * FROM users WHERE username = $1 AND password = $2',
@@ -89,8 +90,8 @@ router.post('/resgiter', async (req, res) => {
   }
 });
 
-router.get('/posts', async (req, res) => {
-  const response = await client.query(query.posts);
+router.get('/posts', cors(), async (req, res) => {
+  const response = await client.query(query.allposts);
   res.json(response.rows);
   console.log(response.rows);
 });
