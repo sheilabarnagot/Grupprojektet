@@ -37,6 +37,35 @@ router.post('/createforumpost', async (req, res) => {
   res.send(response);
 });
 
+router.post('/createusercomment', async (req, res) => {
+  try {
+    await client.query('BEGIN');
+    const insertComment = query.createusercomment.insertComment;
+    await client.query(insertComment, [
+      req.body.userid,
+      req.body.postid,
+      req.body.commentcontent,
+    ]);
+    const insertUserComment = query.createusercomment.insertUserComment;
+    await client.query(insertUserComment, [
+      req.body.userid,
+      req.body.commentid,
+    ]);
+    const insertPostComment = query.createusercomment.insertPostComment;
+    await client.query(insertPostComment, [
+      req.body.postid,
+      req.body.commentid,
+    ]);
+    await client.query('COMMIT');
+  } catch (e) {
+    await client.query('ROLLBACK');
+    res.status(500).send('Internal Server Error');
+    throw e;
+  } finally {
+    res.status(200).json({ message: 'Comment created succesfully' });
+  }
+});
+
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -105,11 +134,8 @@ router.post('/specifikpost', async (req, res) => {
   res.json(response.rows);
 });
 
-router.post('/usercomment', async (req, res) => {
-  const response = await client.query(query.usercomment, [
-    req.body.userid,
-    req.body.postid,
-  ]);
+router.get('/usercomment', async (req, res) => {
+  const response = await client.query(query.usercomment, [1, 2]);
   res.json(response.rows);
   console.log(response.rows);
 });
