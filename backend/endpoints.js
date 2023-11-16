@@ -33,7 +33,7 @@ router.get("/users", async (req, res) => {
 router.post("/createforumpost", async (req, res) => {
   const query = {
     text: `INSERT INTO posts (userid, title, postcontent, topic ) VALUES ($1, $2, $3, $4) RETURNING *;`,
-    values: [1, req.body.title, req.body.postcomment, req.body.topic],
+    values: [1, req.body.title, req.body.postcontent, req.body.topic],
   };
   const response = await client.query(query);
   res.send(response);
