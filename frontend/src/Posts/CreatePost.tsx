@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 export const CreatePost = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/posts", {
+    const response = await fetch("http://localhost:3000/createforumpost", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
