@@ -5,7 +5,7 @@ const query = {
   createforumposts: {
     text: `INSERT INTO posts (userid, title, postcontent, topic ) VALUES ($1, $2, $3, $4) RETURNING *;`,
   },
-  posts: {
+  allposts: {
     text: "select * from posts;",
   },
   usercomment: {
