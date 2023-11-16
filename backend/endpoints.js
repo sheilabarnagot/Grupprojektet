@@ -37,7 +37,7 @@ router.post("/createforumpost", async (req, res) => {
 });
 
 router.get("/allposts", async (req, res) => {
-  const response = await client.query(query.posts);
+  const response = await client.query(query.allposts);
   res.json(response.rows);
   console.log(response.rows);
 });
