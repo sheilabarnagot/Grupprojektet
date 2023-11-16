@@ -1,12 +1,13 @@
 const query = {
   users: {
-    text: "select _ from users;",
+    text: 'select _ from users;',
   },
   createforumposts: {
     text: `INSERT INTO posts (userid, title, postcontent, topic ) VALUES ($1, $2, $3, $4) RETURNING *;`,
   },
   allposts: {
-    text: "select * from posts;",
+    text: `select users.username, posts.title, posts.topic, posts.postcontent, posts.postid, posts.userid
+     from posts JOIN users ON posts.userid = users.userid;`, // JOIN users;, // ON users.userid = $1;
   },
   usercomment: {
     text: `SELECT users.username, posts.postcontent, comments.commentcontent FROM users
