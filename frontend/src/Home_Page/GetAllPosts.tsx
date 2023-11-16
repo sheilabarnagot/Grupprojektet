@@ -1,6 +1,9 @@
+import { NavLink } from 'react-bootstrap';
+
 interface Post {
   posts: {
     userid: number;
+    postid: number;
     title: string;
     topic: string;
     username: string;
@@ -10,6 +13,7 @@ interface Post {
 
 interface IndividualPost {
   userid: number;
+  postid: number;
   title: string;
   topic: string;
   postcontent: string;
@@ -34,12 +38,14 @@ export const GetAllPosts = ({ posts }: Post) => {
                 console.log(ingress);
                 return (
                   <>
-                    <div className="flex items-center">
-                      <p className="m-0 text-3xl pr-3">{post.title}</p>
-                      <p>By: {post.username}</p>
-                    </div>
-                    <p className="underline mb-3">{post.topic}</p>
-                    <p className="mb-3">{ingress}...</p>
+                    <NavLink href={`/posts/${post.userid}/${post.postid}`}>
+                      <div className="flex items-center">
+                        <p className="m-0 text-3xl pr-3">{post.title}</p>
+                        <p>By: {post.username}</p>
+                      </div>
+                      <p className="underline mb-3">{post.topic}</p>
+                      <p className="mb-3">{ingress}...</p>
+                    </NavLink>
                   </>
                 );
               })}

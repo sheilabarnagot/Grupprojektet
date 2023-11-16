@@ -42,8 +42,20 @@ router.get('/allposts', async (req, res) => {
   console.log(response.rows);
 });
 
-router.get('/usercomment', async (req, res) => {
-  const response = await client.query(query.usercomment, [1, 1]);
+router.post('/specifikpost', async (req, res) => {
+  const response = await client.query(query.specifikpost, [
+    req.body.userid,
+    req.body.postid,
+  ]);
+
+  res.json(response.rows);
+});
+
+router.post('/usercomment', async (req, res) => {
+  const response = await client.query(query.usercomment, [
+    req.body.userid,
+    req.body.postid,
+  ]);
   res.json(response.rows);
   console.log(response.rows);
 });
