@@ -6,7 +6,7 @@ const query = require('./queries');
 dotenv.config();
 
 const client = new Client({
-  connectionString: process.env.CONNECTION_STRING_LOCAL,
+  connectionString: process.env.CONNECTION_STRING_AZURE,
   port: 5433,
 });
 

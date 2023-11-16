@@ -1,6 +1,6 @@
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import { useState } from 'react';
 
 export const CreatePost = () => {
   const [isSent, setIsSent] = useState(false);
@@ -10,34 +10,37 @@ export const CreatePost = () => {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     const option = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        title: (e.currentTarget.elements.namedItem("title") as HTMLInputElement)
+        title: (e.currentTarget.elements.namedItem('title') as HTMLInputElement)
           .value,
         topic: (
-          e.currentTarget.elements.namedItem("topic") as HTMLSelectElement
+          e.currentTarget.elements.namedItem('topic') as HTMLSelectElement
         ).value,
         postcontent: (
-          e.currentTarget.elements.namedItem("postcontent") as HTMLInputElement
+          e.currentTarget.elements.namedItem('postcontent') as HTMLInputElement
         ).value,
       }),
     };
 
     e.preventDefault();
-    const response = await fetch(
-      "http://localhost:3000/createforumpost",
-      option
-    );
-    const result = await response.json();
 
-    result.rowCount === 1 ? setIsSent(!isSent) : setIsSent(false);
-
-    console.log(result);
+    try {
+      const response = await fetch(
+        'http://localhost:3000/createforumpost',
+        option
+      );
+      const result = await response.json();
+      result.rowCount === 1 ? setIsSent(!isSent) : setIsSent(false);
+      console.log(result);
+    } catch (error) {
+      console.log('error');
+    }
   };
 
   const handleTopicChange = (e: React.FormEvent<HTMLSelectElement>) => {
-    e.currentTarget.value !== "Topic"
+    e.currentTarget.value !== 'Topic'
       ? setValidation(true)
       : setValidation(false);
   };
@@ -55,8 +58,7 @@ export const CreatePost = () => {
           <Form.Select
             onChange={handleTopicChange}
             name="topic"
-            aria-label="Default select example"
-          >
+            aria-label="Default select example">
             <option>Topic</option>
             <option value="programming">Programming</option>
             <option value="Lifestyle">Lifestyle</option>
@@ -66,7 +68,7 @@ export const CreatePost = () => {
             <Form.Label>Example textarea</Form.Label>
             <Form.Control
               name="postcontent"
-              style={{ height: "500px" }}
+              style={{ height: '500px' }}
               as="textarea"
               rows={3}
             />
@@ -75,11 +77,12 @@ export const CreatePost = () => {
             <Button
               style={{ width: 400 }}
               as="input"
-              variant={validation ? "primary" : "secondary"}
+              variant={validation ? 'primary' : 'secondary'}
               type="submit"
               value="Submit"
-              disabled={isSent || !validation}
+              // disabled={isSent || !validation}
             />
+            <input type="submit" value="YOO" />
           </div>
         </Form>
       </div>
