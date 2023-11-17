@@ -24,6 +24,7 @@ export const SpecifikUserPost = () => {
     const data = await reseponse.json();
     console.log(data);
     setComment(e.target[0].value);
+    console.log(e.target[0].value);
     window.location.reload();
   };
 

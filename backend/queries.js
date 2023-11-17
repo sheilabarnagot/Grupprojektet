@@ -6,7 +6,7 @@ const query = {
     text: `INSERT INTO posts (userid, title, postcontent, topic ) VALUES ($1, $2, $3, $4) RETURNING *;`,
   },
   createusercomment: {
-    insertComment: `INSERT INTO comments (useride, postid, commentcontent) VALUES ($1, $2, $3) RETURNING *;`,
+    insertComment: `INSERT INTO comments (userid, postid, parent_commentid, commentcontent) VALUES ($1, $2, $3, $4 ) RETURNING *;`,
     insertUserComment: `INSERT INTO UserComment (userid, commentid) VALUES ($1, $2) RETURNING *;`,
     insertPostComment: `INSERT INTO PostComment (postid, commentid) VALUES ($1, $2) RETURNING *;`,
   },
@@ -16,7 +16,7 @@ const query = {
   },
   specifikpost: {
     text: `SELECT posts.postid, users.userid, posts.title, posts.postcontent, posts.topic, users.username, 
-    comments.commentid,users.userid, comments.commentcontent, UserComment.CommentID FROM posts
+    comments.commentid,users.userid, comments.commentcontent, comments.parent_commentid, UserComment.CommentID FROM posts
     LEFT JOIN users ON posts.userid = users.userid
     LEFT JOIN comments ON posts.postid = comments.postid
     LEFT JOIN UserComment ON users.userid = UserComment.userid

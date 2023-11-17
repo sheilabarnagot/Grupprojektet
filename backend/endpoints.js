@@ -44,6 +44,7 @@ router.post('/createusercomment', async (req, res) => {
     await client.query(insertComment, [
       req.body.userid,
       req.body.postid,
+      req.body.parentcommentid || null,
       req.body.commentcontent,
     ]);
     const insertUserComment = query.createusercomment.insertUserComment;
@@ -59,7 +60,7 @@ router.post('/createusercomment', async (req, res) => {
     await client.query('COMMIT');
   } catch (e) {
     await client.query('ROLLBACK');
-    res.status(500).send('Internal Server Error');
+    if (e) res.status(500).send('Internal Server Error');
     throw e;
   } finally {
     res.status(200).json({ message: 'Comment created succesfully' });
