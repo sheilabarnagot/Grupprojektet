@@ -7,6 +7,7 @@ import { HomePage } from './Home_Page/HomePage.tsx';
 import { CreatePost } from './Posts/CreatePost.tsx';
 import { SpecifikUserPost } from './Posts/SpecifikUserPost.tsx';
 import RegisterPage from './auth/pages/RegisterPage.tsx';
+import { CreateComment } from './Posts/CreateComment.tsx';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
 
           return result;
         },
+      },
+      {
+        element: <CreateComment />,
+        path: '/post/createpost/:postid',
       },
       {
         path: '/createpost',

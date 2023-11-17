@@ -1,37 +1,8 @@
-import { useLoaderData, useRevalidator } from 'react-router-dom';
-import Form from 'react-bootstrap/Form';
-import { Button } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 
 export const SpecifikUserPost = () => {
   const test: any = useLoaderData();
-  let revalidator = useRevalidator();
-  const [comment, setComment] = useState<any>([]);
-
-  const handleSubmit = async (e?: any, test?: number) => {
-    e.preventDefault();
-    const reseponse = await fetch('http://localhost:3000/createusercomment', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        commentcontent: e.target[0].value,
-        postid: test,
-        userid: 1,
-      }),
-    });
-    const data = await reseponse.json();
-    console.log(data);
-    setComment(e.target[0].value);
-    console.log(e.target[0].value);
-    window.location.reload();
-  };
-
-  useEffect(() => {
-    console.log({ test, comment, revalidator });
-    revalidator;
-  }, [comment]);
 
   return (
     <>
@@ -50,23 +21,11 @@ export const SpecifikUserPost = () => {
                 return <p key={i}>{item.commentcontent}</p>;
               })}
           </div>
-          <Form onSubmit={e => handleSubmit(e, test[0].postid)}>
-            <Form.Group
-              className="mb-3 mt-10"
-              controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Reply to this post..</Form.Label>
-              <Form.Control
-                style={{ width: 500, height: 250 }}
-                as="textarea"
-                rows={3}
-              />
-              <Button className="mt-3" variant="primary" type="submit">
-                Submit{' '}
-              </Button>
-            </Form.Group>
-          </Form>
         </div>
       </div>
+      <NavLink to={`/post/createpost/${test[0].postid}`}>
+        Comment this post
+      </NavLink>
     </>
   );
 };
