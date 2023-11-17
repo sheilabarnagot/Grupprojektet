@@ -31,11 +31,11 @@ export const GetAllPosts = ({ posts }: Post) => {
             posts
               .slice(Math.max(posts.length - 9, 1))
               .reverse()
-              .map((post: IndividualPost, i) => {
+              .map((post: IndividualPost) => {
                 const ingress =
                   post.postcontent &&
                   post.postcontent.split(' ').slice(0, 3).join(' ');
-                console.log(post.postid);
+
                 return (
                   <div key={post.postid}>
                     <NavLink href={`/posts/${post.userid}/${post.postid}`}>
