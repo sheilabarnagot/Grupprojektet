@@ -1,7 +1,7 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
-
+// yest
 export const CreatePost = () => {
   const [isSent, setIsSent] = useState(false);
   const [validation, setValidation] = useState(false);
