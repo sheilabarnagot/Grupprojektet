@@ -17,7 +17,14 @@ export const SpecifikUserPost = () => {
         <div className="border-bottom w-8/12"></div>
         <div className="w-full flex flex-col items-center">
           <div className="w-96">
-            <h1 className="text-center mt-4">Comments</h1>
+            <div className="flex flex-col items-center">
+              <h1 className="mt-4">Comments</h1>
+              <NavLink
+                style={{ color: 'orange' }}
+                to={`/post/createpost/${test[0].postid}`}>
+                Comment this post
+              </NavLink>
+            </div>
             <div className="flex justify-center">
               <div className="border-bottom w-8/12 self"></div>
             </div>
@@ -27,18 +34,22 @@ export const SpecifikUserPost = () => {
                   return (
                     <div className="flex justify-center w-full" key={i}>
                       <div className="flex flex-col items-center w-full justify-center pt-10">
-                        <div className="flex justify-center">
-                          <p className="pr-10">{item.username}:</p>
-                          <p>{item.commentcontent}</p>
-                        </div>
-                        <div className="items-end"></div>
-                        <CommentReply
-                          userName={item.username}
-                          commentContent={item.commentcontent}
-                          postId={item.postid}
-                          commentId={item.commentid}
-                          userId={item.userid}
-                        />
+                        {item.commentcontent && (
+                          <>
+                            <div className="flex justify-center">
+                              <p className="pr-10">{item.username + ':'}</p>
+                              <p>{item.commentcontent}</p>
+                            </div>
+                            <div className="items-end"></div>
+                            <CommentReply
+                              userName={item.username}
+                              commentContent={item.commentcontent}
+                              postId={item.postid}
+                              commentId={item.commentid}
+                              userId={item.userid}
+                            />
+                          </>
+                        )}
                       </div>
                     </div>
                   );
@@ -47,9 +58,6 @@ export const SpecifikUserPost = () => {
           </div>
         </div>
       </div>
-      <NavLink to={`/post/createpost/${test[0].postid}`}>
-        Comment this post
-      </NavLink>
     </>
   );
 };

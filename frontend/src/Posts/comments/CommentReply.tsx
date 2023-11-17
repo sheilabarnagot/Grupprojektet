@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -73,9 +73,7 @@ export const CommentReply = ({
   console.log(commentOnComment);
   return (
     <>
-      <Button variant="secondary" onClick={handleShow}>
-        reply
-      </Button>
+      <button onClick={handleShow}>reply to this comment</button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header style={{ backgroundColor: 'black' }} closeButton>
@@ -122,10 +120,7 @@ export const CommentReply = ({
             onClick={handleClose}>
             Close
           </Button>
-          <Button
-            variant="primary"
-            style={{ backgroundColor: 'orange' }}
-            onClick={handleClose}>
+          <Button style={{ backgroundColor: 'orange' }} onClick={handleClose}>
             Save Changes
           </Button>
         </Modal.Footer>
