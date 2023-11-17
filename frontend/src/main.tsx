@@ -23,6 +23,7 @@ const router = createBrowserRouter([
         element: <h1>User</h1>,
       },
       {
+        // navigera till samma sida
         element: <SpecifikUserPost />,
         path: '/posts/:userid/:postid',
         loader: async ({ params }) => {
