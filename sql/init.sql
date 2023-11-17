@@ -1,4 +1,4 @@
-# Skapat tillsammans med chatgpt
+-- Skapat tillsammans med chatgpt
 
 CREATE TABLE users (
 userid SERIAL PRIMARY KEY,
@@ -18,10 +18,11 @@ topic VARCHAR(255)
 );
 
 CREATE TABLE comments (
-commentid SERIAL PRIMARY KEY,
-postid INTEGER REFERENCES posts(postid),
-useride INTEGER REFERENCES users(userid),
-commentcontent TEXT
+  commentid SERIAL PRIMARY KEY,
+  postid INTEGER REFERENCES posts(postid),
+  userid INTEGER REFERENCES users(userid),
+  parent_commentid INTEGER REFERENCES comments(commentid), -- This represents the comment being responded to
+  commentcontent TEXT
 );
 
 CREATE TABLE UserComment (
