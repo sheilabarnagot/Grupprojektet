@@ -31,24 +31,22 @@ export const GetAllPosts = ({ posts }: Post) => {
             posts
               .slice(Math.max(posts.length - 9, 1))
               .reverse()
-              .map((post: IndividualPost, i) => {
+              .map((post: IndividualPost) => {
                 const ingress =
                   post.postcontent &&
                   post.postcontent.split(' ').slice(0, 3).join(' ');
-                console.log(post.postid);
+
                 return (
-                  <>
-                    <div key={post.postid}>
-                      <NavLink href={`/posts/${post.userid}/${post.postid}`}>
-                        <div className="flex items-center">
-                          <p className="m-0 text-3xl pr-3">{post.title}</p>
-                          <p>By: {post.username}</p>
-                        </div>
-                        <p className="underline mb-3">{post.topic}</p>
-                        <p className="mb-3">{ingress}...</p>
-                      </NavLink>
-                    </div>
-                  </>
+                  <div key={post.postid}>
+                    <NavLink href={`/posts/${post.userid}/${post.postid}`}>
+                      <div className="flex items-center">
+                        <p className="m-0 text-3xl pr-3">{post.title}</p>
+                        <p>By: {post.username}</p>
+                      </div>
+                      <p className="underline mb-3">{post.topic}</p>
+                      <p className="mb-3">{ingress}...</p>
+                    </NavLink>
+                  </div>
                 );
               })}
         </div>
