@@ -1,6 +1,6 @@
 const query = {
   users: {
-    text: 'select _ from users;',
+    text: 'select * from users;',
   },
   createforumposts: {
     text: `INSERT INTO posts (userid, title, postcontent, topic ) VALUES ($1, $2, $3, $4) RETURNING *;`,
@@ -10,6 +10,11 @@ const query = {
     insertUserComment: `INSERT INTO UserComment (userid, commentid) VALUES ($1, $2) RETURNING *;`,
     insertPostComment: `INSERT INTO PostComment (postid, commentid) VALUES ($1, $2) RETURNING *;`,
   },
+
+  commentoncomment: {
+    text: `SELECT * FROM comments WHERE comments.parent_commentid IS NOT NULL AND parent_commentid = $1;`,
+  },
+
   allposts: {
     text: `select users.username, posts.title, posts.topic, posts.postcontent, posts.postid, posts.userid
      from posts JOIN users ON posts.userid = users.userid;`,
@@ -21,7 +26,7 @@ const query = {
     LEFT JOIN comments ON posts.postid = comments.postid
     LEFT JOIN UserComment ON users.userid = UserComment.userid
     AND comments.commentid = UserComment.CommentID
-    WHERE posts.userid = $1 AND posts.postid = $2;`,
+    WHERE posts.userid = $1 AND posts.postid = $2 AND comments.parent_commentid IS NULL;`,
   },
   usercomment: {
     text: `SELECT users.username, posts.postcontent, comments.commentcontent FROM users
