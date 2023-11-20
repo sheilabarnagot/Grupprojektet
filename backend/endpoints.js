@@ -110,7 +110,7 @@ router.post('/login', async (req, res) => {
 
     const query = {
       text: 'SELECT * FROM users WHERE username = $1 AND password = $2',
-      values: [username, password],
+      values: [userName, password],
     };
 
     const response = await client.query(query);
