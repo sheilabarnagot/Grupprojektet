@@ -1,12 +1,15 @@
-import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
-import axios from "axios";
+import { useState } from 'react';
+import { Form, Button } from 'react-bootstrap';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm: React.FC = () => {
   const [formData, setFormData] = useState({
-    userName: "",
-    password: "",
+    userName: '',
+    password: '',
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -15,16 +18,18 @@ const LoginForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("submitted:", formData);
+    console.log('submitted:', formData);
 
     try {
-      const response = await axios.post("/login", formData);
-      console.log("Server response:", response.data);
+      const response = await axios.post(
+        'http://localhost:3000/login',
+        formData
+      );
+      console.log('Server response:', response.data);
 
-      // Cambia la URL después del inicio de sesión exitoso
-      window.location.href = "/";
+      response.data.status === 200 && navigate('/createpost');
     } catch (error) {
-      console.error("Error logging in:", error);
+      console.error('Error logging in:', error);
     }
   };
 

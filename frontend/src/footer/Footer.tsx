@@ -1,10 +1,10 @@
-import { Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import "./FooterStyled.css";
+import { Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import './FooterStyled.css';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="footer">
+    <footer className="footer relative bottom-0">
       <Container>
         <Row>
           <Col>
