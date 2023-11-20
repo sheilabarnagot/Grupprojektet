@@ -1,15 +1,18 @@
-import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
-import axios from "axios";
+import { useState } from 'react';
+import { Form, Button } from 'react-bootstrap';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm: React.FC = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-    email: "",
-    password: "",
+    firstName: '',
+    lastName: '',
+    userName: '',
+    email: '',
+    password: '',
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -18,12 +21,17 @@ const RegisterForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitted:", formData);
+    console.log('Submitted:', formData);
     try {
-      const response = await axios.post("/register", formData);
-      console.log("Server response:", response.data);
+      const response = await axios.post(
+        'http://localhost:3000/register',
+        formData
+      );
+      console.log('Server response:', response.data);
     } catch (error) {
-      console.error("Error registrering user:", error);
+      console.error('Error registrering user:', error);
+    } finally {
+      navigate('/login');
     }
   };
 

@@ -57,16 +57,12 @@ router.post('/createusercomment', async (req, res) => {
       req.body.commentid,
     ]);
     await client.query('COMMIT');
-    res.status(200).json({
-      commentQuery: commentQuery.rows,
-      UserCommentJunc: UserCommentJunc.rows,
-      PostCommentJunc: PostCommentJunc.rows,
-    });
   } catch (e) {
     await client.query('ROLLBACK');
     if (e) res.status(500).send('Internal Server Error');
     throw e;
   } finally {
+    res.status(200).json({ message: 'Comment created succesfully' });
   }
 });
 
@@ -102,7 +98,7 @@ router.post('/createusercomment', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { userName, password } = req.body;
 
     const query = {
       text: 'SELECT * FROM users WHERE username = $1 AND password = $2',
@@ -124,7 +120,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/resgiter', async (req, res) => {
   try {
-    const { username, password, email } = req.body;
+    const { firstName, lastName, userName, password, email } = req.body;
 
     const checkUserQuery = {
       text: 'SELECT * FROM users WHERE username = $1 OR email = $2',
@@ -155,14 +151,6 @@ router.post('/resgiter', async (req, res) => {
 
 router.get('/posts', cors(), async (req, res) => {
   const response = await client.query(query.allposts);
-  res.json(response.rows);
-  console.log(response.rows);
-});
-
-router.post('/commentoncomment', async (req, res) => {
-  const response = await client.query(query.commentoncomment, [
-    req.body.parentcommentid,
-  ]);
   res.json(response.rows);
   console.log(response.rows);
 });
