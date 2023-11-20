@@ -116,7 +116,11 @@ router.post('/login', async (req, res) => {
     const response = await client.query(query);
 
     if (response.rows.length > 0) {
-      res.json({ message: 'Login succesful', user: response.rows[0] });
+      res.json({
+        message: 'Login succesful',
+        user: response.rows[0],
+        status: 200,
+      });
     } else {
       res.status(401).json({ message: 'Invalid credentials' });
     }
@@ -126,13 +130,13 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.post('/resgiter', async (req, res) => {
+router.post('/register', async (req, res) => {
   try {
     const { firstName, lastName, userName, password, email } = req.body;
 
     const checkUserQuery = {
       text: 'SELECT * FROM users WHERE username = $1 OR email = $2',
-      values: [username, email],
+      values: [userName, email],
     };
 
     const existingUser = await client.query(checkUserQuery);
@@ -140,8 +144,8 @@ router.post('/resgiter', async (req, res) => {
       res.status(400).json({ message: 'username or email already exist' });
     } else {
       const createUserQuery = {
-        text: 'INSERT INTE users (username, password, email) VALUES ($1, $2, $3) RETURNING *',
-        values: [username, password, email],
+        text: 'INSERT INTO users (first_name, last_name, username, password, email) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        values: [firstName, lastName, userName, password, email],
       };
 
       const newUser = await client.query(createUserQuery);
