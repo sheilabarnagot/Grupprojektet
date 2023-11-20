@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import axios from "axios";
 
 const RegisterForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -15,9 +16,15 @@ const RegisterForm: React.FC = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Submitted:", formData);
+    try {
+      const response = await axios.post("/register", formData);
+      console.log("Server response:", response.data);
+    } catch (error) {
+      console.error("Error registrering user:", error);
+    }
   };
 
   return (
@@ -38,7 +45,7 @@ const RegisterForm: React.FC = () => {
         <Form.Control
           type="text"
           placeholder="Enter your last name"
-          name="Lastname"
+          name="lastName"
           value={formData.lastName}
           onChange={handleChange}
           required
