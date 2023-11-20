@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react';
 export const CreateComment = () => {
   const postid = useLocation();
   const [id, setId] = useState();
-  const [userName, setUserName] = useState();
 
   const handleSubmit = async (e?: any, test?: number) => {
     e.preventDefault();
@@ -28,12 +27,11 @@ export const CreateComment = () => {
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('items') || '');
-    const userName = JSON.parse(localStorage.getItem('userName') || '');
-    if (items && userName) {
+
+    if (items) {
       setId(items);
-      setUserName(userName);
     }
-    console.log({ items, userName });
+    console.log({ items });
   }, []);
   return (
     <div className="flex justify-center">

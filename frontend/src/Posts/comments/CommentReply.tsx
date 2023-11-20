@@ -45,8 +45,8 @@ export const CommentReply = ({
       option
     );
     const result = await response.json();
-
     getComment();
+    return result;
   };
 
   async function getComment() {
