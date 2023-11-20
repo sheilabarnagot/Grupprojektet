@@ -4,14 +4,23 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 export const Nav_bar = () => {
   const [darkMode, setDarkMode] = useState('dark');
-
   const toggleDarkMode = () => {
     darkMode === 'dark' ? setDarkMode('light') : setDarkMode('dark');
+  };
+  const [item, setItem] = useState<any>(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const getitem = localStorage.getItem('items');
+    if (getitem) setItem(getitem);
+  });
+
+  const navigateToLogin = () => {
+    item ? navigate('/') : navigate('/login');
   };
 
   return (
@@ -60,9 +69,9 @@ export const Nav_bar = () => {
                       </Button>
                     </NavDropdown.ItemText>
                   </NavDropdown>
-                  <Nav.Link to="/" as={NavLink} href="#" disabled>
-                    {true ? 'user settings' : 'Login'}
-                  </Nav.Link>
+                  <p onClick={navigateToLogin}>
+                    {item !== 'undefined' && item ? 'user settings' : 'Login'}
+                  </p>
                 </div>
               </Nav>
               <Form className="d-flex">

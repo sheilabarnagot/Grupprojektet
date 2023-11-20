@@ -76,8 +76,6 @@ export const CommentReply = ({
       setUsername(userName);
     }
   });
-
-  console.log(commentOnComment);
   return (
     <>
       <button onClick={handleShow}>reply to this comment</button>

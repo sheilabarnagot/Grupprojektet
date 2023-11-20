@@ -18,8 +18,6 @@ export const SpecifikUserPost = () => {
     console.log(items);
   }, []);
 
-  console.log(test);
-
   return (
     <>
       <div className="flex flex-col items-center mt-4">
