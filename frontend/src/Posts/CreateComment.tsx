@@ -23,21 +23,25 @@ export const CreateComment = () => {
     console.log(e.target[0].value);
   };
   return (
-    <Form
-      onSubmit={e => handleSubmit(e, Number(postid.pathname.split('/')[3]))}>
-      <Form.Group
-        className="mb-3 mt-10"
-        controlId="exampleForm.ControlTextarea1">
-        <Form.Label>Reply to this post..</Form.Label>
-        <Form.Control
-          style={{ width: 500, height: 250 }}
-          as="textarea"
-          rows={3}
-        />
-        <Button className="mt-3" variant="primary" type="submit">
-          Submit{' '}
-        </Button>
-      </Form.Group>
-    </Form>
+    <div className="flex justify-center">
+      <Form
+        onSubmit={e => handleSubmit(e, Number(postid.pathname.split('/')[3]))}>
+        <Form.Group
+          className="mb-3 mt-10"
+          controlId="exampleForm.ControlTextarea1">
+          <Form.Label>Reply to this post..</Form.Label>
+          <Form.Control
+            style={{ width: 500, height: 250 }}
+            as="textarea"
+            rows={3}
+          />
+          <div className="mt-3 flex justify-center">
+            <Button variant="primary" type="submit">
+              Submit{' '}
+            </Button>
+          </div>
+        </Form.Group>
+      </Form>
+    </div>
   );
 };
