@@ -66,6 +66,14 @@ router.post('/createusercomment', async (req, res) => {
   }
 });
 
+router.post('/commentoncomment', async (req, res) => {
+  const response = await client.query(query.commentoncomment, [
+    req.body.parentcommentid,
+  ]);
+  res.json(response.rows);
+  console.log(response.rows);
+});
+
 router.post('/createusercomment', async (req, res) => {
   try {
     await client.query('BEGIN');
