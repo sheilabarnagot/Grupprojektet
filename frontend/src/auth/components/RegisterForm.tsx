@@ -92,7 +92,7 @@ const RegisterForm: React.FC = () => {
           required
         />
       </Form.Group>
-      <Button variant="primary" type="submit" className="resgisterSubmit">
+      <Button variant="primary" type="submit" className="mt-4">
         Submit
       </Button>
     </Form>

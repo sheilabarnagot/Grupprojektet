@@ -1,16 +1,20 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './FooterStyled.css';
+// import './FooterStyled.css';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="footer relative bottom-0">
+    <footer className="footer bg-gray-300 p-3 mt-20">
       <Container>
         <Row>
-          <Col>
+          <Col className="text-center">
             <p>
-              <Link to="/samtycke">samtycke</Link>
-              <Link to="/samtycke">Consent</Link>
+              <Link to="/samtycke" className="text-blue-500 hover:underline mr-4">
+                samtycke
+              </Link>
+              <Link to="/samtycke" className="text-blue-500 hover:underline">
+                Consent
+              </Link>
             </p>
           </Col>
         </Row>

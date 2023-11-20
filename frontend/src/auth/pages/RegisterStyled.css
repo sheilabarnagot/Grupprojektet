@@ -1,5 +1,4 @@
-/* Form style */
-.form-container {
+Form style .form-container {
   background-color: #f8f9fa;
   padding: 20px;
   border-radius: 8px;
@@ -7,7 +6,6 @@
   margin-top: 20px;
 }
 
-/* Submit button */
 .resgisterSubmit {
   margin-top: 30px;
   background-color: #22568e;
@@ -19,12 +17,10 @@
   background-color: #0056b3;
 }
 
-/* form titles */
 .form-label {
   color: #343a40;
 }
 
-/* title */
 .text-center.mb-4 {
   color: #007bff;
 }

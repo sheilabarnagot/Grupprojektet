@@ -1,7 +1,6 @@
-import LoginForm from "../components/LoginForm";
-import { Container, Row, Col } from "react-bootstrap";
-import "./LoginStyled.css"
-
+import LoginForm from '../components/LoginForm';
+import { Container, Row, Col } from 'react-bootstrap';
+import './LoginStyled.css';
 
 const LoginPage: React.FC = () => {
   return (
@@ -13,7 +12,7 @@ const LoginPage: React.FC = () => {
         </Col>
       </Row>
     </Container>
-    );
+  );
 };
 
 export default LoginPage;
