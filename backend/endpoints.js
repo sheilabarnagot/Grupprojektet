@@ -23,7 +23,6 @@ router.get('/hello', (req, res) => {
 router.get('/users', async (req, res) => {
   const response = await client.query(query.users);
   res.json(response.rows);
-  console.log(response.rows);
 });
 
 router.post('/createforumpost', async (req, res) => {
@@ -34,6 +33,11 @@ router.post('/createforumpost', async (req, res) => {
     req.body.topic,
   ]);
   res.send(response);
+});
+
+router.post('/post', async (req, res) => {
+  const response = await client.query(query.post, [req.body.postid]);
+  res.json(response);
 });
 
 router.post('/createusercomment', async (req, res) => {
@@ -72,7 +76,6 @@ router.post('/commentoncomment', async (req, res) => {
     req.body.parentcommentid,
   ]);
   res.json(response.rows);
-  console.log(response.rows);
 });
 
 router.post('/createusercomment', async (req, res) => {

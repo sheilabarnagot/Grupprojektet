@@ -28,6 +28,9 @@ const query = {
     AND comments.commentid = UserComment.CommentID
     WHERE posts.userid = $1 AND posts.postid = $2 AND comments.parent_commentid IS NULL;`,
   },
+  post: {
+    text: `SELECT posts.postcontent, posts.title FROM posts WHERE posts.postid = $1;`,
+  },
   usercomment: {
     text: `SELECT users.username, posts.postcontent, comments.commentcontent FROM users
     JOIN posts ON users.userid = posts.userid
