@@ -37,6 +37,7 @@ router.post('/createforumpost', async (req, res) => {
 });
 
 router.post('/createusercomment', async (req, res) => {
+  console.log(req.body.userid);
   try {
     await client.query('BEGIN');
     const insertComment = query.createusercomment.insertComment;

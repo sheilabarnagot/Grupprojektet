@@ -1,9 +1,12 @@
 import Form from 'react-bootstrap/Form';
 import { useLocation } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
 
 export const CreateComment = () => {
   const postid = useLocation();
+  const [id, setId] = useState();
+  const [userName, setUserName] = useState();
 
   const handleSubmit = async (e?: any, test?: number) => {
     e.preventDefault();
@@ -15,13 +18,23 @@ export const CreateComment = () => {
       body: JSON.stringify({
         commentcontent: e.target[0].value,
         postid: test,
-        userid: 1,
+        userid: id,
       }),
     });
     const data = await reseponse.json();
     console.log(data);
     console.log(e.target[0].value);
   };
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('items') || '');
+    const userName = JSON.parse(localStorage.getItem('userName') || '');
+    if (items && userName) {
+      setId(items);
+      setUserName(userName);
+    }
+    console.log({ items, userName });
+  }, []);
   return (
     <div className="flex justify-center">
       <Form

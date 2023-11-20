@@ -38,6 +38,7 @@ const LoginForm: React.FC = () => {
   useEffect(() => {
     localStorage.setItem('items', JSON.stringify(id));
     console.log({ id });
+    id && localStorage.setItem('userName', JSON.stringify(formData.userName));
     id && navigate('/');
   });
 
