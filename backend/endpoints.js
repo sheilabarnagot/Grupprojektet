@@ -28,7 +28,7 @@ router.get('/users', async (req, res) => {
 
 router.post('/createforumpost', async (req, res) => {
   const response = await client.query(query.createforumposts, [
-    1,
+    req.body.userid,
     req.body.title,
     req.body.postcontent,
     req.body.topic,

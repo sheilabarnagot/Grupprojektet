@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -9,29 +9,44 @@ const LoginForm: React.FC = () => {
     password: '',
   });
 
+  const [id, setId] = useState();
+
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('submitted:', formData);
-
     try {
-      const response = await axios.post(
-        'http://localhost:3000/login',
-        formData
-      );
-      console.log('Server response:', response.data);
+      const response = await axios
+        .post('http://localhost:3000/login', formData)
+        .then(res => {
+          setId(res.data.user.userid);
+          return res;
+        });
 
-      response.data.status === 200 && navigate('/createpost');
+      console.log('Server response:', response.data);
     } catch (error) {
       console.error('Error logging in:', error);
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(id));
+    console.log({ id });
+    id && navigate('/');
+  });
+
+  // useEffect(() => {
+  //   const items = JSON.parse(localStorage.getItem('items') || '');
+  //   if (items) {
+  //     setId(items);
+  //   }
+  // }, []);
 
   return (
     <Form onSubmit={handleSubmit}>

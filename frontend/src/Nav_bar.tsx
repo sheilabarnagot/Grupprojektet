@@ -1,17 +1,17 @@
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 export const Nav_bar = () => {
-  const [darkMode, setDarkMode] = useState("dark");
+  const [darkMode, setDarkMode] = useState('dark');
 
   const toggleDarkMode = () => {
-    darkMode === "dark" ? setDarkMode("light") : setDarkMode("dark");
+    darkMode === 'dark' ? setDarkMode('light') : setDarkMode('dark');
   };
 
   return (
@@ -22,8 +22,7 @@ export const Nav_bar = () => {
           data-bs-theme={darkMode}
           expand="sm"
           id="navbar-navbar-Nav_bar"
-          className="bg-body-tertiary w-100"
-        >
+          className="bg-body-tertiary w-100">
           <Container id="navbar-Nav_bar" fluid>
             <div className="flex justify-end w-1/12">
               <Navbar.Brand as={NavLink} to="/">
@@ -35,9 +34,8 @@ export const Nav_bar = () => {
             <Navbar.Collapse id="navbarScroll">
               <Nav
                 className="me-auto my-2 my-lg-0"
-                style={{ minHeight: "75px", width: "100%" }}
-                navbarScroll
-              >
+                style={{ minHeight: '75px', width: '100%' }}
+                navbarScroll>
                 <div className="flex w-full items-center justify-center">
                   <Nav.Link as={NavLink} to="/" href="#action1">
                     Home
@@ -57,14 +55,13 @@ export const Nav_bar = () => {
                     <NavDropdown.ItemText>
                       <Button
                         onClick={toggleDarkMode}
-                        variant="outline-primary"
-                      >
+                        variant="outline-primary">
                         Toggle dark mode
                       </Button>
                     </NavDropdown.ItemText>
                   </NavDropdown>
-                  <Nav.Link href="#" disabled>
-                    User settings
+                  <Nav.Link to="/" as={NavLink} href="#" disabled>
+                    {true ? 'user settings' : 'Login'}
                   </Nav.Link>
                 </div>
               </Nav>

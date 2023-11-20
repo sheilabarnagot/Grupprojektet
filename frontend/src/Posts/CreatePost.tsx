@@ -1,10 +1,11 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // yest
 export const CreatePost = () => {
   const [isSent, setIsSent] = useState(false);
   const [validation, setValidation] = useState(false);
+  const [id, setId] = useState();
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
@@ -13,6 +14,7 @@ export const CreatePost = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        userid: id,
         title: (e.currentTarget.elements.namedItem('title') as HTMLInputElement)
           .value,
         topic: (
@@ -44,6 +46,14 @@ export const CreatePost = () => {
       ? setValidation(true)
       : setValidation(false);
   };
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('items') || '');
+    if (items) {
+      setId(items);
+    }
+    console.log(items);
+  }, []);
 
   return (
     <>
