@@ -1,11 +1,22 @@
 import { NavLink } from 'react-router-dom';
 import { useLoaderData } from 'react-router-dom';
 import { CommentReply } from './comments/CommentReply';
+import { useEffect, useState } from 'react';
 
 export const SpecifikUserPost = () => {
   const test: any = useLoaderData();
+  const [id, setId] = useState();
+  const [userName, setUserName] = useState();
 
-  console.log(test);
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('items') || '');
+    const userName = JSON.parse(localStorage.getItem('userName') || '');
+    if (items) {
+      setId(items);
+      setUserName(userName);
+    }
+    console.log(items);
+  }, []);
 
   return (
     <>
@@ -37,7 +48,7 @@ export const SpecifikUserPost = () => {
                         {item.commentcontent && (
                           <>
                             <div className="flex justify-center">
-                              <p className="pr-10">{item.username + ':'}</p>
+                              <p className="pr-10">{userName + ':'}</p>
                               <p>{item.commentcontent}</p>
                             </div>
                             <div className="items-end"></div>
@@ -46,7 +57,7 @@ export const SpecifikUserPost = () => {
                               commentContent={item.commentcontent}
                               postId={item.postid}
                               commentId={item.commentid}
-                              userId={item.userid}
+                              id={id}
                             />
                           </>
                         )}

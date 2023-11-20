@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -8,18 +8,18 @@ interface Props {
   commentContent: string;
   postId: number;
   commentId: number;
-  userId: number;
+  id: number | undefined;
 }
 
 export const CommentReply = ({
-  userName,
+  // userName,
   commentContent,
   postId,
   commentId,
-  userId,
+  id,
 }: Props) => {
   const [show, setShow] = useState(false);
-  const [comment, setComment] = useState<any>();
+  const [userName, setUsername] = useState<any>();
   const [commentOnComment, setCommentOnComment] = useState<any>();
   const handleClose = () => setShow(false);
   const handleShow = async () => {
@@ -35,7 +35,7 @@ export const CommentReply = ({
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         postid: postId,
-        userid: userId,
+        userid: id,
         parentcommentid: commentId,
         commentcontent: e.currentTarget.elements[0].value,
       }),
@@ -45,8 +45,8 @@ export const CommentReply = ({
       option
     );
     const result = await response.json();
-
     getComment();
+    return result;
   };
 
   async function getComment() {
@@ -70,7 +70,12 @@ export const CommentReply = ({
     }
   }
 
-  console.log(commentOnComment);
+  useEffect(() => {
+    const userName = JSON.parse(localStorage.getItem('userName') || '');
+    if (userName) {
+      setUsername(userName);
+    }
+  });
   return (
     <>
       <button onClick={handleShow}>reply to this comment</button>

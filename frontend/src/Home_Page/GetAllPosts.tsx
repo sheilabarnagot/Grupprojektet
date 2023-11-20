@@ -1,4 +1,4 @@
-import { NavLink } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 
 interface Post {
   posts: {
@@ -21,7 +21,6 @@ interface IndividualPost {
 }
 
 export const GetAllPosts = ({ posts }: Post) => {
-  console.log(posts);
   return (
     <>
       <div className="flex flex-col items-center">
@@ -38,7 +37,7 @@ export const GetAllPosts = ({ posts }: Post) => {
 
                 return (
                   <div key={post.postid}>
-                    <NavLink href={`/posts/${post.userid}/${post.postid}`}>
+                    <NavLink to={`/posts/${post.userid}/${post.postid}`}>
                       <div className="flex items-center">
                         <p className="m-0 text-3xl pr-3">{post.title}</p>
                         <p>By: {post.username}</p>
