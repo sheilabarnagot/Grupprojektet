@@ -11,8 +11,50 @@ const query = {
     insertPostComment: `INSERT INTO PostComment (postid, commentid) VALUES ($1, $2) RETURNING *;`,
   },
 
+  // 100% credit to chatgpt for this query
   commentoncomment: {
-    text: `SELECT * FROM comments WHERE comments.parent_commentid IS NOT NULL AND parent_commentid = $1;`,
+    text: `WITH RECURSIVE CommentThread AS (
+      -- Anchor member: Select the root comment (CommentOnPost) and its direct children
+      SELECT
+        c.commentid,
+        c.commentcontent,
+        c.userid,
+        c.parent_commentid,
+        0 AS depth
+      FROM
+        comments c
+      WHERE
+        c.parent_commentid = $1 -- Root comment (CommentOnPost)
+      
+      UNION ALL
+      
+      -- Recursive member: Select the next level of comments
+      SELECT
+        c.commentid,
+        c.commentcontent,
+        c.userid,
+        c.parent_commentid,
+        ct.depth + 1 AS depth
+      FROM
+        comments c
+      JOIN
+        CommentThread ct ON c.parent_commentid = ct.commentid
+    )
+    -- Select all comments in the thread
+    SELECT
+      ct.commentid,
+      ct.commentcontent,
+      ct.userid,
+      ct.parent_commentid,
+      u.username,
+      ct.depth
+    FROM
+      CommentThread ct
+    JOIN
+      users u ON ct.userid = u.userid
+    ORDER BY
+      ct.depth, ct.commentid;
+    `,
   },
 
   allposts: {
@@ -28,6 +70,56 @@ const query = {
     AND comments.commentid = UserComment.CommentID
     WHERE posts.userid = $1 AND posts.postid = $2 AND comments.parent_commentid IS NULL;`,
   },
+
+  // chatgpt
+  specifikPostComment: {
+    text: `WITH RECURSIVE PostComments AS (
+      -- Anchor member: Select the comments directly on a specific post
+      SELECT
+        c.commentid,
+        c.commentcontent,
+        c.userid,
+        c.parent_commentid,
+        0 AS depth
+      FROM
+        comments c
+      WHERE
+        c.parent_commentid IS NULL -- Comments directly on posts
+        AND c.postid = $1 -- Specify the postid you are interested in
+      
+      UNION ALL
+      
+      -- Recursive member: Select the next level of comments
+      SELECT
+        c.commentid,
+        c.commentcontent,
+        c.userid,
+        c.parent_commentid,
+        pc.depth + 1 AS depth
+      FROM
+        comments c
+      JOIN
+        PostComments pc ON c.parent_commentid = pc.commentid
+    )
+    -- Select all comments directly on the specified post
+    SELECT
+      pc.commentid,
+      pc.commentcontent,
+      pc.userid,
+      pc.parent_commentid,
+      u.username,
+      pc.depth
+    FROM
+      PostComments pc
+    JOIN
+      users u ON pc.userid = u.userid
+    WHERE
+      pc.parent_commentid IS NULL -- Only select top-level comments
+    ORDER BY
+      pc.depth, pc.commentid;
+    `,
+  },
+
   post: {
     text: `SELECT posts.postcontent, posts.title FROM posts WHERE posts.postid = $1;`,
   },

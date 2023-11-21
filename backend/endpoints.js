@@ -62,12 +62,15 @@ router.post('/createusercomment', async (req, res) => {
       req.body.commentid,
     ]);
     await client.query('COMMIT');
+    res.status(200).json({
+      message: 'Comment created succesfully',
+      commentQuery: commentQuery.rows[0],
+    });
   } catch (e) {
     await client.query('ROLLBACK');
     if (e) res.status(500).send('Internal Server Error');
     throw e;
   } finally {
-    res.status(200).json({ message: 'Comment created succesfully' });
   }
 });
 
@@ -174,6 +177,14 @@ router.get('/posts', cors(), async (req, res) => {
 router.post('/specifikpost', async (req, res) => {
   const response = await client.query(query.specifikpost, [
     req.body.userid,
+    req.body.postid,
+  ]);
+
+  res.json(response.rows);
+});
+
+router.post('/specifikPostComment', async (req, res) => {
+  const response = await client.query(query.specifikPostComment, [
     req.body.postid,
   ]);
 

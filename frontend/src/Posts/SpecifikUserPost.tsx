@@ -7,17 +7,31 @@ export const SpecifikUserPost = () => {
   const test: any = useLoaderData();
   const [id, setId] = useState();
   const [userName, setUserName] = useState();
+  const [comments, setComments] = useState<any>([]);
+
+  const getPosts = async () => {
+    const response = await fetch('http://localhost:3000/specifikPostComment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        postid: test[0].postid,
+      }),
+    });
+
+    const result = await response.json();
+    setComments(result);
+  };
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('items') || '');
-    const userName = JSON.parse(localStorage.getItem('userName') || '');
+    // const userName = JSON.parse(localStorage.getItem('userName') || '');
     if (items) {
       setId(items);
       setUserName(userName);
     }
-    console.log(items);
+    getPosts();
   }, []);
-
+  console.log(comments);
   return (
     <>
       <div className="flex flex-col items-center mt-4">
@@ -40,20 +54,19 @@ export const SpecifikUserPost = () => {
               <div className="border-bottom w-8/12 self"></div>
             </div>
             <div className="self-start">
-              {test &&
-                test.map((item: any, i: number) => {
+              {comments &&
+                comments.map((item: any, i: number) => {
                   return (
                     <div className="flex justify-center w-full" key={i}>
                       <div className="flex flex-col items-center w-full justify-center pt-10">
                         {item.commentcontent && (
                           <>
                             <div className="flex justify-center">
-                              <p className="pr-10">{userName + ':'}</p>
+                              <p className="pr-10">{item.username + ':'}</p>
                               <p>{item.commentcontent}</p>
                             </div>
                             <div className="items-end"></div>
                             <CommentReply
-                              userName={item.username}
                               commentContent={item.commentcontent}
                               postId={item.postid}
                               commentId={item.commentid}

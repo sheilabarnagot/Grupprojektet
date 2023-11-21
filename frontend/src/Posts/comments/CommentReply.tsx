@@ -4,7 +4,6 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
 interface Props {
-  userName: string;
   commentContent: string;
   postId: number;
   commentId: number;
@@ -12,7 +11,6 @@ interface Props {
 }
 
 export const CommentReply = ({
-  // userName,
   commentContent,
   postId,
   commentId,
@@ -76,6 +74,7 @@ export const CommentReply = ({
       setUsername(userName);
     }
   });
+
   return (
     <>
       <button onClick={handleShow}>reply to this comment</button>
@@ -97,7 +96,8 @@ export const CommentReply = ({
             commentOnComment.map((comment: any) => {
               return (
                 <div key={comment.commentid}>
-                  <div>
+                  <div className="flex ">
+                    <p className="mr-2">{comment.username}:</p>
                     <p>{comment.commentcontent}</p>
                   </div>
                 </div>
