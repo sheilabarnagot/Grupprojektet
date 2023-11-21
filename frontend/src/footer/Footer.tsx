@@ -9,12 +9,12 @@ const Footer: React.FC = () => {
         <Row>
           <Col className="text-center">
             <p>
-              <Link to="/samtycke" className="text-blue-500 hover:underline mr-4">
-                samtycke
+              <Link to="/gdpr" className="text-blue-500 hover:underline mr-4">
+                Integritet och cookies
               </Link>
-              <Link to="/samtycke" className="text-blue-500 hover:underline">
+              {/* <Link to="/samtycke" className="text-blue-500 hover:underline">
                 Consent
-              </Link>
+              </Link> */}
             </p>
           </Col>
         </Row>
