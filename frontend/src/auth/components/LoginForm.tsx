@@ -12,7 +12,7 @@ const LoginForm: React.FC = () => {
     userName: '',
     password: '',
   });
-  const [id, setId] = useState();
+  const [userIdFromDatabase, setUserIdFromDatabase] = useState();
   console.log({ isLoggedIn, setIsLoggedInContext });
 
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const LoginForm: React.FC = () => {
       const response = await axios
         .post('http://localhost:3000/login', formData)
         .then(res => {
-          setId(res.data.user.userid);
+          setUserIdFromDatabase(res.data.user.userid);
           return res;
         });
 
@@ -40,8 +40,8 @@ const LoginForm: React.FC = () => {
   };
 
   useEffect(() => {
-    id &&
-      (localStorage.setItem('items', JSON.stringify(id)),
+    userIdFromDatabase &&
+      (localStorage.setItem('items', JSON.stringify(userIdFromDatabase)),
       localStorage.setItem('userName', JSON.stringify(formData.userName)),
       setIsLoggedInContext(true),
       navigate('/'),
