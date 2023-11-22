@@ -12,15 +12,20 @@ export const Nav_bar = () => {
   const toggleDarkMode = () => {
     darkMode === 'dark' ? setDarkMode('light') : setDarkMode('dark');
   };
-  const [item, setItem] = useState<any>(null);
+  const [item, setItem] = useState<string | null>(null);
   const navigate = useNavigate();
   useEffect(() => {
     const getitem = localStorage.getItem('items');
     if (getitem) setItem(getitem);
-  });
+  }, []);
 
   const navigateToLogin = () => {
     item ? navigate('/') : navigate('/login');
+  };
+  const handleLogout = () => {
+    localStorage.removeItem('items');
+    setItem(null);
+    navigate('/login');
   };
 
   return (
@@ -31,7 +36,8 @@ export const Nav_bar = () => {
           data-bs-theme={darkMode}
           expand="sm"
           id="navbar-navbar-Nav_bar"
-          className="bg-body-tertiary w-100">
+          className="bg-body-tertiary w-100"
+        >
           <Container id="navbar-Nav_bar" fluid>
             <div className="flex justify-end w-1/12">
               <Navbar.Brand as={NavLink} to="/">
@@ -44,7 +50,8 @@ export const Nav_bar = () => {
               <Nav
                 className="me-auto my-2 my-lg-0"
                 style={{ minHeight: '75px', width: '100%' }}
-                navbarScroll>
+                navbarScroll
+              >
                 <div className="flex w-full items-center justify-center">
                   <Nav.Link as={NavLink} to="/" href="#action1">
                     Home
@@ -64,7 +71,8 @@ export const Nav_bar = () => {
                     <NavDropdown.ItemText>
                       <Button
                         onClick={toggleDarkMode}
-                        variant="outline-primary">
+                        variant="outline-primary"
+                      >
                         Toggle dark mode
                       </Button>
                     </NavDropdown.ItemText>
@@ -72,6 +80,11 @@ export const Nav_bar = () => {
                   <p onClick={navigateToLogin}>
                     {item !== 'undefined' && item ? 'user settings' : 'Login'}
                   </p>
+                  {item && (
+                    <Button variant="putline-danger" onClick={handleLogout}>
+                      Logout
+                    </Button>
+                  )}
                 </div>
               </Nav>
               <Form className="d-flex">
