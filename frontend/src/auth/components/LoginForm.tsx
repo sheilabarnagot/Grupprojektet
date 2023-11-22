@@ -2,14 +2,18 @@ import { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ContextType, isUserLoggedIn } from '../../Context/IsLoggedInContext';
 
 const LoginForm: React.FC = () => {
+  const { isLoggedIn, setIsLoggedInContext } =
+    isUserLoggedIn() satisfies ContextType;
+
   const [formData, setFormData] = useState({
     userName: '',
     password: '',
   });
-
   const [id, setId] = useState();
+  console.log({ isLoggedIn, setIsLoggedInContext });
 
   const navigate = useNavigate();
 
@@ -36,18 +40,13 @@ const LoginForm: React.FC = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem('items', JSON.stringify(id));
-    console.log({ id });
-    id && localStorage.setItem('userName', JSON.stringify(formData.userName));
-    id && navigate('/');
+    id &&
+      (localStorage.setItem('items', JSON.stringify(id)),
+      localStorage.setItem('userName', JSON.stringify(formData.userName)),
+      setIsLoggedInContext(true),
+      navigate('/'),
+      localStorage.setItem('isLoggedIn', JSON.stringify(true)));
   });
-
-  // useEffect(() => {
-  //   const items = JSON.parse(localStorage.getItem('items') || '');
-  //   if (items) {
-  //     setId(items);
-  //   }
-  // }, []);
 
   return (
     <Form onSubmit={handleSubmit}>
