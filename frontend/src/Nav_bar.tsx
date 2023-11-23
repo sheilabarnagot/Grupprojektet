@@ -23,6 +23,18 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
     isLoggedIn || item ? navigate('/') : navigate('/login');
   };
 
+  const handleDelete = async () => {
+    const response = await fetch('http://localhost:3000/deleteaccount', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: item }),
+    });
+    const result = await response.json();
+    console.log(result);
+  };
+
   const toggleDarkMode = () => {
     darkMode === 'dark' ? setDarkMode('light') : setDarkMode('dark');
   };
