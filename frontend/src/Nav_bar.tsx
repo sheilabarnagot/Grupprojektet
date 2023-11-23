@@ -19,6 +19,18 @@ export const Nav_bar = () => {
     if (getitem) setItem(getitem);
   }, []);
 
+  const handleDelete = async () => {
+    const response = await fetch('http://localhost:3000/deleteaccount', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: item }),
+    });
+    const result = await response.json();
+    console.log(result);
+  };
+
   const navigateToLogin = () => {
     item ? navigate('/') : navigate('/login');
   };
@@ -36,8 +48,7 @@ export const Nav_bar = () => {
           data-bs-theme={darkMode}
           expand="sm"
           id="navbar-navbar-Nav_bar"
-          className="bg-body-tertiary w-100"
-        >
+          className="bg-body-tertiary w-100">
           <Container id="navbar-Nav_bar" fluid>
             <div className="flex justify-end w-1/12">
               <Navbar.Brand as={NavLink} to="/">
@@ -50,8 +61,7 @@ export const Nav_bar = () => {
               <Nav
                 className="me-auto my-2 my-lg-0"
                 style={{ minHeight: '75px', width: '100%' }}
-                navbarScroll
-              >
+                navbarScroll>
                 <div className="flex w-full items-center justify-center">
                   <Nav.Link as={NavLink} to="/" href="#action1">
                     Home
@@ -67,12 +77,14 @@ export const Nav_bar = () => {
                     <NavDropdown.Item href="#action3">
                       My comments
                     </NavDropdown.Item>
+                    <NavDropdown.Item onClick={handleDelete}>
+                      Delete account
+                    </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.ItemText>
                       <Button
                         onClick={toggleDarkMode}
-                        variant="outline-primary"
-                      >
+                        variant="outline-primary">
                         Toggle dark mode
                       </Button>
                     </NavDropdown.ItemText>
