@@ -7,38 +7,43 @@ import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-export const Nav_bar = () => {
+interface Props {
+  isLoggedIn: boolean;
+  setIsLoggedInContext: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
   const [darkMode, setDarkMode] = useState('dark');
+  const [isLoggedInLocalStorage, setIsLoggedInLocalStorage] = useState(false);
+
+  const [item, setItem] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const navigateToLogin = () => {
+    isLoggedIn || item ? navigate('/') : navigate('/login');
+  };
+
   const toggleDarkMode = () => {
     darkMode === 'dark' ? setDarkMode('light') : setDarkMode('dark');
   };
-  const [item, setItem] = useState<string | null>(null);
-  const navigate = useNavigate();
-  useEffect(() => {
-    const getitem = localStorage.getItem('items');
-    if (getitem) setItem(getitem);
-  }, []);
-
-  const handleDelete = async () => {
-    const response = await fetch('http://localhost:3000/deleteaccount', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: item }),
-    });
-    const result = await response.json();
-    console.log(result);
-  };
-
-  const navigateToLogin = () => {
-    item ? navigate('/') : navigate('/login');
-  };
   const handleLogout = () => {
-    localStorage.removeItem('items');
+    localStorage.clear();
+    setIsLoggedInContext(false);
+    setIsLoggedInLocalStorage(false);
     setItem(null);
     navigate('/login');
   };
+
+  useEffect(() => {
+    const getitem = localStorage.getItem('items');
+
+    if (getitem) setItem(getitem);
+  }, []);
+
+  useEffect(() => {
+    const getIsLoggedIn = localStorage.getItem('isLoggedIn');
+    if (getIsLoggedIn) setIsLoggedInLocalStorage(true);
+  }, [isLoggedIn]);
 
   return (
     <>
@@ -68,13 +73,20 @@ export const Nav_bar = () => {
                   </Nav.Link>
                   <Nav.Link href="#action2">Link</Nav.Link>
                   <NavDropdown title="Actions" id="navbarScrollingDropdown">
-                    <NavDropdown.Item as={NavLink} to="/createpost">
+                    <NavDropdown.Item
+                      disabled={!isLoggedInLocalStorage}
+                      as={NavLink}
+                      to="/createpost">
                       Create post
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="#action3">
+                    <NavDropdown.Item
+                      disabled={!isLoggedInLocalStorage}
+                      href="#action3">
                       My created posts
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="#action3">
+                    <NavDropdown.Item
+                      disabled={!isLoggedInLocalStorage}
+                      href="#action3">
                       My comments
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={handleDelete}>
@@ -89,10 +101,10 @@ export const Nav_bar = () => {
                       </Button>
                     </NavDropdown.ItemText>
                   </NavDropdown>
-                  <p onClick={navigateToLogin}>
-                    {item !== 'undefined' && item ? 'user settings' : 'Login'}
+                  <p onClick={() => navigateToLogin()}>
+                    {isLoggedIn || item ? 'user settings' : 'Login'}
                   </p>
-                  {item && (
+                  {(isLoggedIn || item) && (
                     <Button variant="putline-danger" onClick={handleLogout}>
                       Logout
                     </Button>
