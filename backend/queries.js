@@ -25,9 +25,9 @@ const query = {
         comments c
       WHERE
         c.parent_commentid = $1 -- Root comment (CommentOnPost)
-      
+
       UNION ALL
-      
+
       -- Recursive member: Select the next level of comments
       SELECT
         c.commentid,
@@ -62,7 +62,7 @@ const query = {
      from posts JOIN users ON posts.userid = users.userid;`,
   },
   specifikpost: {
-    text: `SELECT posts.postid, users.userid, posts.title, posts.postcontent, posts.topic, users.username, 
+    text: `SELECT posts.postid, users.userid, posts.title, posts.postcontent, posts.topic, users.username,
     comments.commentid,users.userid, comments.commentcontent, comments.parent_commentid, UserComment.CommentID FROM posts
     LEFT JOIN users ON posts.userid = users.userid
     LEFT JOIN comments ON posts.postid = comments.postid
@@ -86,9 +86,9 @@ const query = {
       WHERE
         c.parent_commentid IS NULL -- Comments directly on posts
         AND c.postid = $1 -- Specify the postid you are interested in
-      
+
       UNION ALL
-      
+
       -- Recursive member: Select the next level of comments
       SELECT
         c.commentid,
@@ -131,6 +131,39 @@ const query = {
     AND comments.commentid = UserComment.CommentID
     WHERE posts.postid = $1
     AND users.userid = $2;`,
+  },
+
+  // Delete: Tillsammans med Sheila, Pontus och ChatGpt
+  delete: {
+    updateParentComment: {
+      text: `UPDATE comments
+      SET parent_commentid = NULL
+      WHERE userid = $1;`,
+    },
+
+    updatePostComments: {
+      text: `UPDATE comments
+      SET postid = NULL
+      WHERE postid IN (SELECT postid FROM posts WHERE userid = $1);`,
+    },
+
+    deleteusercomment: {
+      text: `DELETE FROM UserComment WHERE userid = $1;`,
+    },
+
+    deletepostcomment: {
+      text: `DELETE FROM PostComment
+      WHERE postid IN (SELECT postid FROM posts WHERE userid = $1);`,
+    },
+    deletecommentstable: {
+      text: `DELETE FROM comments WHERE userid = $1;`,
+    },
+    deleteuserpost: {
+      text: `DELETE FROM posts WHERE userid = $1;`,
+    },
+    deleteuser: {
+      text: `DELETE FROM users WHERE userid = $1;`,
+    },
   },
 };
 
