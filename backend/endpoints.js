@@ -197,4 +197,39 @@ router.get('/usercomment', async (req, res) => {
   console.log(response.rows);
 });
 
+router.post('/deleteaccount', async (req, res) => {
+  console.log(req.body.userid);
+  try {
+    await client.query('BEGIN');
+    const deleteusercomment = query.delete.deleteusercomment.text;
+    const deleteusercommentQuery = await client.query(deleteusercomment, [
+      req.body.userid,
+    ]);
+    const deletepostcomment = query.delete.deletepostcomment.text;
+    const deletepostQuery = await client.query(deletepostcomment, [
+      req.body.userid,
+    ]);
+    const deletecommentstable = query.delete.deletecommentstable.text;
+    const deletecommentstableQuery = await client.query(deletecommentstable, [
+      req.body.userid,
+    ]);
+    const deleteuserpost = query.delete.deleteuserpost.text;
+    const deleteuserpostQuery = await client.query(deleteuserpost, [
+      req.body.userid,
+    ]);
+    const deleteuser = query.delete.deleteuser.text;
+    const deleteuserQuery = await client.query(deleteuser, [req.body.userid]);
+    await client.query('COMMIT');
+    res.status(200).json({
+      message: 'Account deleted succesfully',
+      deleteuserQuery: deleteuserQuery.rows[0],
+    });
+  } catch (e) {
+    await client.query('ROLLBACK');
+    if (e) res.status(500).send('Internal Server Error');
+    throw e;
+  } finally {
+  }
+});
+
 module.exports = router;
