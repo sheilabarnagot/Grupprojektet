@@ -197,4 +197,33 @@ router.get('/usercomment', async (req, res) => {
   console.log(response.rows);
 });
 
+
+// Lägg till POST-metoden för att hantera profiluppdateringar
+router.post('/editprofile/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { name, password } = req.body;
+
+    const updateProfileQuery = {
+      text: 'UPDATE users SET name = $1, password = $2 WHERE id = $3 RETURNING *',
+      values: [name, password, userId],
+    };
+
+    const response = await client.query(updateProfileQuery);
+
+    if (response.rows.length > 0) {
+      res.status(200).json({
+        message: 'Profile updated successfully',
+        user: response.rows[0],
+      });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
 module.exports = router;

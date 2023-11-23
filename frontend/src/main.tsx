@@ -11,6 +11,7 @@ import LoginPage from './auth/pages/LoginPage.tsx';
 import Footer from './footer/Footer.tsx';
 import { CreateComment } from './Posts/CreateComment.tsx';
 import GDPRInfo from './gdpr/Gdpr.tsx';
+import UserSettings from './UserSettings.tsx'; // Uppdatera med rätt sökväg
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <LoginPage />,
+      },
+      {
+        path: '/user-settings', // Lägg till ny rutt för UserSettings
+        element: <UserSettings />,
       },
       {
         path: '/gdpr',
