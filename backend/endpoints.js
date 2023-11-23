@@ -198,17 +198,28 @@ router.get('/usercomment', async (req, res) => {
 });
 
 router.post('/deleteaccount', async (req, res) => {
-  console.log(req.body.userid);
   try {
     await client.query('BEGIN');
+    const updateParentComment = query.delete.updateParentComment.text;
+    const updateParentCommentQuery = await client.query(updateParentComment, [
+      req.body.userid,
+    ]);
+
+    const updatePostComment = query.delete.updatePostComments.text;
+    const updatePostCommentQuery = await client.query(updatePostComment, [
+      req.body.userid,
+    ]);
+
     const deleteusercomment = query.delete.deleteusercomment.text;
     const deleteusercommentQuery = await client.query(deleteusercomment, [
       req.body.userid,
     ]);
+
     const deletepostcomment = query.delete.deletepostcomment.text;
     const deletepostQuery = await client.query(deletepostcomment, [
       req.body.userid,
     ]);
+
     const deletecommentstable = query.delete.deletecommentstable.text;
     const deletecommentstableQuery = await client.query(deletecommentstable, [
       req.body.userid,

@@ -132,16 +132,31 @@ const query = {
     WHERE posts.postid = $1
     AND users.userid = $2;`,
   },
+
+  // Delete: Tillsammans med Sheila, Pontus och ChatGpt
   delete: {
+    updateParentComment: {
+      text: `UPDATE comments
+      SET parent_commentid = NULL
+      WHERE userid = $1;`,
+    },
+
+    updatePostComments: {
+      text: `UPDATE comments
+      SET postid = NULL
+      WHERE postid IN (SELECT postid FROM posts WHERE userid = $1);`,
+    },
+
     deleteusercomment: {
       text: `DELETE FROM UserComment WHERE userid = $1;`,
     },
+
     deletepostcomment: {
       text: `DELETE FROM PostComment
-      WHERE parent_commentid IN (SELECT commentid FROM comments WHERE userid = $1);`,
+      WHERE postid IN (SELECT postid FROM posts WHERE userid = $1);`,
     },
     deletecommentstable: {
-      text: `DELETE FROM comments`,
+      text: `DELETE FROM comments WHERE userid = $1;`,
     },
     deleteuserpost: {
       text: `DELETE FROM posts WHERE userid = $1;`,
