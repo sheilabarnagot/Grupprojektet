@@ -16,7 +16,7 @@ const RegisterForm: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,7 +24,7 @@ const RegisterForm: React.FC = () => {
     console.log('Submitted:', formData);
     try {
       const response = await axios.post(
-        'http://localhost:3000/register',
+        'http://172.160.242.104:8000/register',
         formData
       );
       console.log('Server response:', response.data);

@@ -13,7 +13,7 @@ CREATE TABLE posts (
 postid SERIAL PRIMARY KEY,
 userid INTEGER REFERENCES users(userid),
 title VARCHAR(255),
-postcontent TEXT
+postcontent TEXT,
 topic VARCHAR(255)
 );
 

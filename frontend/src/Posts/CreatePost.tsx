@@ -30,7 +30,7 @@ export const CreatePost = () => {
 
     try {
       const response = await fetch(
-        'http://localhost:3000/createforumpost',
+        'http://172.160.242.104:8000/createforumpost',
         option
       );
       const result = await response.json();
