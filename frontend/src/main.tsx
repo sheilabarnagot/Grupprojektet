@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import { HomePage } from './Home_Page/HomePage.tsx';
 import { CreatePost } from './Posts/CreatePost.tsx';
-// import { SpecifikUserPost } from './Posts/SpecifikUserPost.tsx';
 import RegisterPage from './auth/pages/RegisterPage.tsx';
 import LoginPage from './auth/pages/LoginPage.tsx';
 import Footer from './footer/Footer.tsx';
