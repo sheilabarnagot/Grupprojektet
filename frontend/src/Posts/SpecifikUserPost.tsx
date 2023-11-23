@@ -3,7 +3,7 @@ import { useLoaderData } from 'react-router-dom';
 import { CommentReply } from './comments/CommentReply';
 import { useEffect, useState } from 'react';
 
-export const SpecifikUserPost = () => {
+const SpecifikUserPost = () => {
   const test: any = useLoaderData();
   const [id, setId] = useState();
   const [userName, setUserName] = useState();
@@ -85,3 +85,5 @@ export const SpecifikUserPost = () => {
     </>
   );
 };
+
+export default SpecifikUserPost;

@@ -113,13 +113,18 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
                       </Button>
                     </NavDropdown.ItemText>
                   </NavDropdown>
-                  <p onClick={() => navigateToLogin()}>
+                  <NavDropdown.ItemText onClick={() => navigateToLogin()}>
                     {isLoggedIn || item ? 'user settings' : 'Login'}
-                  </p>
+                  </NavDropdown.ItemText>
                   {(isLoggedIn || item) && (
                     <Button variant="putline-danger" onClick={handleLogout}>
                       Logout
                     </Button>
+                  )}
+                  {!isLoggedIn && (
+                    <Nav.Link to={'/register'} as={NavLink}>
+                      {(!isLoggedIn || !item) && 'Register'}
+                    </Nav.Link>
                   )}
                 </div>
               </Nav>

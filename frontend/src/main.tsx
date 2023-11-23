@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import { HomePage } from './Home_Page/HomePage.tsx';
 import { CreatePost } from './Posts/CreatePost.tsx';
-import { SpecifikUserPost } from './Posts/SpecifikUserPost.tsx';
+// import { SpecifikUserPost } from './Posts/SpecifikUserPost.tsx';
 import RegisterPage from './auth/pages/RegisterPage.tsx';
 import LoginPage from './auth/pages/LoginPage.tsx';
 import Footer from './footer/Footer.tsx';
 import { CreateComment } from './Posts/CreateComment.tsx';
 import GDPRInfo from './gdpr/Gdpr.tsx';
+import { lazyWithPreload } from 'react-lazy-with-preload';
+const SpecifikUserPost = lazyWithPreload(
+  () => import('./Posts/SpecifikUserPost.tsx')
+);
 
 const router = createBrowserRouter([
   {
@@ -26,8 +30,11 @@ const router = createBrowserRouter([
         element: <h1>User</h1>,
       },
       {
-        // navigera till samma sida
-        element: <SpecifikUserPost />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <SpecifikUserPost />
+          </Suspense>
+        ),
         path: '/posts/:userid/:postid',
         loader: async ({ params }) => {
           const response = await fetch('http://localhost:3000/specifikpost', {
@@ -42,6 +49,7 @@ const router = createBrowserRouter([
           });
           const result = await response.json();
 
+          SpecifikUserPost.preload();
           return result;
         },
       },
