@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { isUserLoggedIn } from './Context/IsLoggedInContext';
 
 interface Props {
   isLoggedIn: boolean;
@@ -23,21 +24,17 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
     isLoggedIn || item ? navigate('/') : navigate('/login');
   };
 
-  const handleDelete = async () => {
-    const response = await fetch('http://localhost:3000/deleteaccount', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: item }),
-    });
-    const result = await response.json();
-    console.log(result);
-  };
+  useEffect(() => {
+    const getitem = localStorage.getItem('items');
 
-  const toggleDarkMode = () => {
-    darkMode === 'dark' ? setDarkMode('light') : setDarkMode('dark');
-  };
+    if (getitem) setItem(getitem);
+  });
+
+  useEffect(() => {
+    const getIsLoggedIn = localStorage.getItem('isLoggedIn');
+    if (getIsLoggedIn) setIsLoggedInLocalStorage(true);
+  }, []);
+
   const handleLogout = () => {
     localStorage.clear();
     setIsLoggedInContext(false);
@@ -46,16 +43,25 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
     navigate('/login');
   };
 
-  useEffect(() => {
-    const getitem = localStorage.getItem('items');
+  const handleDelete = async () => {
+    console.log(item);
+    const response = await fetch('http://localhost:3000/deleteaccount', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userid: item }),
+    });
+    const result = await response.json();
+    console.log(result);
+    setIsLoggedInContext(false);
+    console.log({ isLoggedIn });
+    if (!isLoggedIn || !item) handleLogout();
+  };
 
-    if (getitem) setItem(getitem);
-  }, []);
-
-  useEffect(() => {
-    const getIsLoggedIn = localStorage.getItem('isLoggedIn');
-    if (getIsLoggedIn) setIsLoggedInLocalStorage(true);
-  }, [isLoggedIn]);
+  const toggleDarkMode = () => {
+    darkMode === 'dark' ? setDarkMode('light') : setDarkMode('dark');
+  };
 
   return (
     <>
