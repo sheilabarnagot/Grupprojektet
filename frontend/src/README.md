@@ -42,6 +42,18 @@ Om din webbapp innehåller länkar till tredje parts webbplatser, vänligen för
 
 Förklara hur samtycke erhålls från användare, särskilt om samtycke är den rättsliga grunden för databehandling. Du kan nämna användningen av kryssrutor eller någon annan mekanism du använder för att säkerställa att användare aktivt och medvetet ger sitt samtycke.
 
+## 11. Personuppgiftsansvarig och Kontaktperson:
+
+Personuppgiftsansvarig: Codeforum Company, 123 Privacy Street, Stadsvillan. Företrädare för personuppgiftsansvarig: Pontus Abrahamsson, pontus@codeforum.com. Sheila Martinez, sheila@codeforum.com, Nassim Ben nassim@codeforum.com. Dataskyddsombud: codeforumgroup@codeforum.
+
+## 12. Ändamål med behandlingen:
+
+Vi behandlar dina personuppgifter för följande ändamål: Att tillhandahålla och förbättra våra tjänster, skicka kritisk säkerhetsinformation, samt hantera användarkonton och regelbrott.
+
+## 13. Kategorier av registrerade och personuppgifter:
+
+Vi samlar in och behandlar personuppgifter från följande kategorier av registrerade: Användare av vår webbapplikation. De behandlade personuppgifterna inkluderar: Användarnamn, namn, efternamn, e-postadress och annan information användaren väljer att dela.
+
 # Din Kontroll:
 
 Du har rätt att välja hur dina personuppgifter används. Genom att använda vår webbplats samtycker du till vår användning av cookies och behandling av dina personuppgifter som beskrivs ovan. Om du inte samtycker kan du justera dina cookieinställningar eller avstå från att använda vår webbplats.
