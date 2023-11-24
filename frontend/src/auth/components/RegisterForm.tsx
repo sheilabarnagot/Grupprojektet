@@ -24,7 +24,7 @@ const RegisterForm: React.FC = () => {
     console.log('Submitted:', formData);
     try {
       const response = await axios.post(
-        'http://172.160.242.104:8000/register',
+        'http://localhost:3000/register',
         formData
       );
       console.log('Server response:', response.data);
