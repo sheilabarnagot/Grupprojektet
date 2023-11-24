@@ -6,7 +6,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { isUserLoggedIn } from './Context/IsLoggedInContext';
 
 interface Props {
   isLoggedIn: boolean;
@@ -26,14 +25,13 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
 
   useEffect(() => {
     const getitem = localStorage.getItem('items');
-
     if (getitem) setItem(getitem);
   });
 
   useEffect(() => {
     const getIsLoggedIn = localStorage.getItem('isLoggedIn');
     if (getIsLoggedIn) setIsLoggedInLocalStorage(true);
-  }, []);
+  }, [isLoggedIn]);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -44,20 +42,24 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
   };
 
   const handleDelete = async () => {
-    console.log(item);
-    const response = await fetch('http://localhost:3000/deleteaccount', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ userid: item }),
-    });
-    const result = await response.json();
-    console.log(result);
-    setIsLoggedInContext(false);
     console.log({ isLoggedIn });
-    if (!isLoggedIn || !item) handleLogout();
+    // const response = await fetch('http://localhost:3000/deleteaccount', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ userid: item }),
+    // });
+    // const result = await response.json();
+    try {
+      setIsLoggedInContext(false);
+    } catch (error) {
+      console.error('Error deleting account:', error);
+    } finally {
+      handleLogout();
+    }
   };
+  console.log({ isLoggedIn });
 
   const toggleDarkMode = () => {
     darkMode === 'dark' ? setDarkMode('light') : setDarkMode('dark');
@@ -107,9 +109,11 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
                       href="#action3">
                       My comments
                     </NavDropdown.Item>
-                    <NavDropdown.Item onClick={handleDelete}>
-                      Delete account
-                    </NavDropdown.Item>
+                    {isLoggedInLocalStorage && (
+                      <NavDropdown.Item onClick={handleDelete}>
+                        Delete account
+                      </NavDropdown.Item>
+                    )}
                     <NavDropdown.Divider />
                     <NavDropdown.ItemText>
                       <Button
@@ -120,16 +124,16 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
                     </NavDropdown.ItemText>
                   </NavDropdown>
                   <NavDropdown.ItemText onClick={() => navigateToLogin()}>
-                    {isLoggedIn || item ? 'user settings' : 'Login'}
+                    {isLoggedInLocalStorage ? 'User settings' : 'Login'}
                   </NavDropdown.ItemText>
-                  {(isLoggedIn || item) && (
+                  {isLoggedInLocalStorage && (
                     <Button variant="putline-danger" onClick={handleLogout}>
                       Logout
                     </Button>
                   )}
-                  {!isLoggedIn && (
+                  {!isLoggedInLocalStorage && (
                     <Nav.Link to={'/register'} as={NavLink}>
-                      {(!isLoggedIn || !item) && 'Register'}
+                      Register
                     </Nav.Link>
                   )}
                 </div>
