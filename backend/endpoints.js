@@ -20,8 +20,8 @@ router.get('/hello', (req, res) => {
   res.send('Hello World!');
 });
 
-router.get('/users', async (req, res) => {
-  const response = await client.query(query.users);
+router.post('/users', async (req, res) => {
+  const response = await client.query(query.users,[req.body.userId]);
   res.json(response.rows);
 });
 
@@ -199,14 +199,14 @@ router.get('/usercomment', async (req, res) => {
 
 
 // Lägg till POST-metoden för att hantera profiluppdateringar
-router.post('/editprofile/:userId', async (req, res) => {
+router.post('/editprofile/', async (req, res) => {
   try {
     const userId = req.params.userId;
-    const { name, password } = req.body;
+    const { email, username, password } = req.body;
 
     const updateProfileQuery = {
-      text: 'UPDATE users SET name = $1, password = $2 WHERE id = $3 RETURNING *',
-      values: [name, password, userId],
+      text: 'UPDATE users SET email = $1, username = $2, password = $3 WHERE userid = $4 RETURNING *',
+      values: [email, username, password, userId],
     };
 
     const response = await client.query(updateProfileQuery);

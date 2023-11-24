@@ -1,6 +1,7 @@
 const query = {
   users: {
-    text: 'select * from users;',
+    text: 'select * from users WHERE userid=$1;',
+
   },
   createforumposts: {
     text: `INSERT INTO posts (userid, title, postcontent, topic ) VALUES ($1, $2, $3, $4) RETURNING *;`,
