@@ -23,16 +23,6 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
     isLoggedIn || item ? navigate('/') : navigate('/login');
   };
 
-  useEffect(() => {
-    const getitem = localStorage.getItem('items');
-    if (getitem) setItem(getitem);
-  });
-
-  useEffect(() => {
-    const getIsLoggedIn = localStorage.getItem('isLoggedIn');
-    if (getIsLoggedIn) setIsLoggedInLocalStorage(true);
-  }, [isLoggedIn]);
-
   const handleLogout = () => {
     localStorage.clear();
     setIsLoggedInContext(false);
@@ -65,6 +55,16 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
   const toggleDarkMode = () => {
     darkMode === 'dark' ? setDarkMode('light') : setDarkMode('dark');
   };
+
+  useEffect(() => {
+    const getitem = localStorage.getItem('items');
+    if (getitem) setItem(getitem);
+  });
+
+  useEffect(() => {
+    const getIsLoggedIn = localStorage.getItem('isLoggedIn');
+    if (getIsLoggedIn) setIsLoggedInLocalStorage(true);
+  }, [isLoggedIn]);
 
   return (
     <>
