@@ -43,16 +43,17 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
 
   const handleDelete = async () => {
     console.log({ isLoggedIn });
-    // const response = await fetch('http://localhost:3000/deleteaccount', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ userid: item }),
-    // });
-    // const result = await response.json();
+    const response = await fetch('http://localhost:3000/deleteaccount', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userid: item }),
+    });
+    const result = await response.json();
     try {
       setIsLoggedInContext(false);
+      console.log({ result });
     } catch (error) {
       console.error('Error deleting account:', error);
     } finally {
