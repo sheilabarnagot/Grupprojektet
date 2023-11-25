@@ -156,6 +156,11 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
                     {isLoggedInLocalStorage && (
                       <>
                         <NavDropdown.Divider />
+                        <NavDropdown.Item
+                          disabled={!isLoggedInLocalStorage}
+                          href="#action3">
+                          <p className="text-center">User settings</p>
+                        </NavDropdown.Item>
                         <NavDropdown.ItemText>
                           <NavDropdown.Item
                             style={{
@@ -169,14 +174,18 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
                       </>
                     )}
                   </NavDropdown>
-                  <NavDropdown.ItemText onClick={() => navigateToLogin()}>
-                    {isLoggedInLocalStorage ? 'User settings' : 'Login'}
+                  <NavDropdown.ItemText
+                    onClick={() =>
+                      !isLoggedInLocalStorage
+                        ? navigateToLogin()
+                        : handleLogout()
+                    }>
+                    {isLoggedInLocalStorage ? (
+                      <Nav.Link>Logout</Nav.Link>
+                    ) : (
+                      <Nav.Link>Login</Nav.Link>
+                    )}
                   </NavDropdown.ItemText>
-                  {isLoggedInLocalStorage && (
-                    <Button variant="putline-danger" onClick={handleLogout}>
-                      Logout
-                    </Button>
-                  )}
                   {!isLoggedInLocalStorage && (
                     <Nav.Link to={'/register'} as={NavLink}>
                       Register
