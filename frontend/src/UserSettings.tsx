@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button';
 const UserSettings = () => {
   // Tillstånd för användaruppgifter
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [userId, setuserId] = useState('');
 
@@ -18,7 +17,7 @@ const UserSettings = () => {
     getUserData(Id);
   });
 
-  const getUserData = async Id => {
+  const getUserData = async (Id: any) => {
     try {
       const response = await fetch(`http://localhost:3000/users`, {
         method: 'POST',
@@ -32,14 +31,13 @@ const UserSettings = () => {
       }
       const data = await response.json();
       setEmail(data[0].email);
-      setPassword(data[0].password);
       setUsername(data[0].username);
     } catch (error) {
       console.error('Error fetching user profile:', error);
     }
   };
 
-  const handleSaveChanges = async event => {
+  const handleSaveChanges = async (event: any) => {
     event.preventDefault();
     try {
       const response = await fetch(`http://localhost:3000/editprofile`, {
