@@ -92,7 +92,6 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
                   <Nav.Link as={NavLink} to="/" href="#action1">
                     Home
                   </Nav.Link>
-                  <Nav.Link href="#action2">Link</Nav.Link>
                   <NavDropdown title="Actions" id="navbarScrollingDropdown">
                     <NavDropdown.Item
                       disabled={!isLoggedInLocalStorage}
