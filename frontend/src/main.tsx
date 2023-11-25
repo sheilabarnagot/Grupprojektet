@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         ),
         path: '/posts/:userid/:postid',
         loader: async ({ params }) => {
-          const response = await fetch('http://localhost:3000/specifikpost', {
+          const response = await fetch('http://localhost:8000/specifikpost', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

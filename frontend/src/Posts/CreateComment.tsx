@@ -15,7 +15,7 @@ export const CreateComment = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e?: any, test?: number) => {
     e.preventDefault();
-    const reseponse = await fetch('http://localhost:3000/createusercomment', {
+    const reseponse = await fetch('http://localhost:8000/createusercomment', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export const CreateComment = () => {
   };
 
   const getPost = async () => {
-    await fetch('http://localhost:3000/post', {
+    await fetch('http://localhost:8000/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

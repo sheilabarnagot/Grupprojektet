@@ -32,7 +32,7 @@ export const CreatePost = () => {
     try {
       const response =
         validation &&
-        (await fetch('http://localhost:3000/createforumpost', option));
+        (await fetch('http://localhost:8000/createforumpost', option));
       const result = response && (await response.json());
       result.rowCount === 1 ? setIsSent(!isSent) : setIsSent(false);
       console.log(result);

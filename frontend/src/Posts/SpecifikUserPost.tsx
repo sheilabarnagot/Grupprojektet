@@ -10,7 +10,7 @@ const SpecifikUserPost = () => {
   const [comments, setComments] = useState<any>([]);
 
   const getPosts = async () => {
-    const response = await fetch('http://localhost:3000/specifikPostComment', {
+    const response = await fetch('http://localhost:8000/specifikPostComment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
