@@ -26,9 +26,7 @@ export const CreateComment = () => {
         userid: id,
       }),
     });
-    const data = await reseponse.json();
-    console.log(data);
-    console.log(e.target[0].value);
+    await reseponse.json();
     navigate(-1);
   };
 
@@ -39,7 +37,7 @@ export const CreateComment = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        postid: id,
+        postid: postid.pathname.split('/')[3],
       }),
     })
       .then(res => res.json())
@@ -55,14 +53,14 @@ export const CreateComment = () => {
       setId(items);
     }
   }, []);
-
   useEffect(() => {
     getPost();
+    console.log(1);
   }, [id]);
 
   console.log(result && result);
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex h-screen flex-col items-center justify-center">
       {result &&
         result.map((item: any, i: number) => {
           return (
