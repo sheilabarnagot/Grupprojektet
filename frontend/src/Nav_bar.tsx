@@ -4,6 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -13,11 +14,11 @@ interface Props {
 }
 
 export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
-  const [darkMode, setDarkMode] = useState('dark');
   const [isLoggedInLocalStorage, setIsLoggedInLocalStorage] = useState(false);
 
   const [item, setItem] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [modal, setModal] = useState(false);
 
   const navigateToLogin = () => {
     isLoggedIn || item ? navigate('/') : navigate('/login');
@@ -31,6 +32,12 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
     navigate('/login');
   };
 
+  const handleModal = () => {
+    setModal(true);
+  };
+
+  const handleClose = () => setModal(false);
+
   const handleDelete = async () => {
     console.log({ isLoggedIn });
     const response = await fetch('http://localhost:3000/deleteaccount', {
@@ -41,20 +48,17 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
       body: JSON.stringify({ userid: item }),
     });
     const result = await response.json();
+
     try {
       setIsLoggedInContext(false);
       console.log({ result });
     } catch (error) {
       console.error('Error deleting account:', error);
     } finally {
-      handleLogout();
+      handleLogout(), setModal(false);
     }
   };
   console.log({ isLoggedIn });
-
-  const toggleDarkMode = () => {
-    darkMode === 'dark' ? setDarkMode('light') : setDarkMode('dark');
-  };
 
   useEffect(() => {
     const getitem = localStorage.getItem('items');
@@ -69,9 +73,47 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
   return (
     <>
       <div className="w-screen">
+        <Modal show={modal} onHide={handleClose}>
+          <Modal.Header
+            style={{
+              backgroundColor: '#1a202c',
+            }}
+            closeButton>
+            <Modal.Title className="underline">Warning!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body
+            style={{
+              backgroundColor: '#1a202c',
+            }}>
+            This action will delete all your posts, comments and account.
+            <div className="h-2 text-red-500"></div>
+            <p className="text-red-500 font-bold text-center text-2xl">
+              This action cannot be undone.
+            </p>
+            <div className="h-2"></div>
+            <p className="text-right">Are you sure you want to continue?</p>
+          </Modal.Body>
+          <Modal.Footer
+            style={{
+              backgroundColor: '#1a202c',
+            }}>
+            <Button
+              variant="secondary"
+              className="bg-green-500"
+              onClick={handleClose}>
+              Go to safety
+            </Button>
+            <Button
+              className="bg-orange-400"
+              variant="warning"
+              onClick={handleDelete}>
+              Delete my account
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <Navbar
-          bg={darkMode}
-          data-bs-theme={darkMode}
+          bg="dark"
+          data-bs-theme="dark"
           expand="sm"
           id="navbar-navbar-Nav_bar"
           className="bg-body-tertiary w-100">
@@ -110,19 +152,22 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
                       href="#action3">
                       My comments
                     </NavDropdown.Item>
+
                     {isLoggedInLocalStorage && (
-                      <NavDropdown.Item onClick={handleDelete}>
-                        Delete account
-                      </NavDropdown.Item>
+                      <>
+                        <NavDropdown.Divider />
+                        <NavDropdown.ItemText>
+                          <NavDropdown.Item
+                            style={{
+                              backgroundColor: 'red',
+                              color: 'black',
+                            }}
+                            onClick={handleModal}>
+                            Delete account
+                          </NavDropdown.Item>
+                        </NavDropdown.ItemText>
+                      </>
                     )}
-                    <NavDropdown.Divider />
-                    <NavDropdown.ItemText>
-                      <Button
-                        onClick={toggleDarkMode}
-                        variant="outline-primary">
-                        Toggle dark mode
-                      </Button>
-                    </NavDropdown.ItemText>
                   </NavDropdown>
                   <NavDropdown.ItemText onClick={() => navigateToLogin()}>
                     {isLoggedInLocalStorage ? 'User settings' : 'Login'}
