@@ -76,10 +76,11 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
           id="navbar-navbar-Nav_bar"
           className="bg-body-tertiary w-100">
           <Container id="navbar-Nav_bar" fluid>
-            <div className="flex justify-end w-1/12">
+            <div className="flex ml-10 items-center justify-end w-1/12">
               <Navbar.Brand as={NavLink} to="/">
                 CodeForum
               </Navbar.Brand>
+              <img src="/icon.svg" width="35" />
             </div>
             <Navbar.Toggle aria-controls="navbarScroll" />
 
