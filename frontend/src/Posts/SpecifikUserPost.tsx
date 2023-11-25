@@ -34,7 +34,7 @@ const SpecifikUserPost = () => {
   console.log(comments);
   return (
     <>
-      <div className="flex flex-col items-center mt-4">
+      <div className="flex flex-col mt-36 h-screen items-center ">
         <h1>{test && test[0].title}</h1>
         <p className="underline mb-3">{test && test[0].topic}</p>
         <p className="mb-3">{test && test[0].username}</p>
