@@ -4,9 +4,9 @@ import { CommentReply } from './comments/CommentReply';
 import { useEffect, useState } from 'react';
 
 const SpecifikUserPost = () => {
-  const test: any = useLoaderData();
+  const useLoaderDataFunc: any = useLoaderData();
   const [id, setId] = useState();
-  const [userName, setUserName] = useState();
+
   const [comments, setComments] = useState<any>([]);
 
   const getPosts = async () => {
@@ -14,7 +14,7 @@ const SpecifikUserPost = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        postid: test[0].postid,
+        postid: useLoaderDataFunc[0].postid,
       }),
     });
 
@@ -25,10 +25,9 @@ const SpecifikUserPost = () => {
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('items') || '');
-    // const userName = JSON.parse(localStorage.getItem('userName') || '');
+
     if (items) {
       setId(items);
-      setUserName(userName);
     }
     getPosts();
   }, []);
@@ -36,10 +35,16 @@ const SpecifikUserPost = () => {
   return (
     <>
       <div className="flex flex-col mt-36 h-screen items-center ">
-        <h1>{test && test[0].title}</h1>
-        <p className="underline mb-3">{test && test[0].topic}</p>
-        <p className="mb-3">{test && test[0].username}</p>
-        <p className="mb-3">{test && test[0].postcontent}</p>
+        <h1>{useLoaderDataFunc && useLoaderDataFunc[0].title}</h1>
+        <p className="underline mb-3">
+          {useLoaderDataFunc && useLoaderDataFunc[0].topic}
+        </p>
+        <p className="mb-3">
+          Author: {useLoaderDataFunc && useLoaderDataFunc[0].username}
+        </p>
+        <p className="mb-3">
+          {useLoaderDataFunc && useLoaderDataFunc[0].postcontent}
+        </p>
         <div className="border-bottom w-8/12"></div>
         <div className="w-full flex flex-col items-center">
           <div className="w-96">
@@ -47,7 +52,7 @@ const SpecifikUserPost = () => {
               <h1 className="mt-4">Comments</h1>
               <NavLink
                 style={{ color: 'orange' }}
-                to={`/post/createpost/${test[0].postid}`}>
+                to={`/post/createpost/${useLoaderDataFunc[0].postid}`}>
                 Comment this post
               </NavLink>
             </div>
@@ -71,6 +76,7 @@ const SpecifikUserPost = () => {
                               commentContent={item.commentcontent}
                               postId={item.postid}
                               commentId={item.commentid}
+                              userName={item.username}
                               id={id}
                             />
                           </>

@@ -82,7 +82,7 @@ export const CreatePost = () => {
             <option value="Computers">Computers</option>
           </Form.Select>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-            <Form.Label>Example textarea</Form.Label>
+            <Form.Label>Content</Form.Label>
             <Form.Control
               name="postcontent"
               style={{ height: '500px' }}
