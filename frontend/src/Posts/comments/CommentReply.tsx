@@ -39,7 +39,7 @@ export const CommentReply = ({
       }),
     };
     const response = await fetch(
-      'http://localhost:3000//createusercomment',
+      'http://localhost:3000/createusercomment',
       option
     );
     const result = await response.json();
