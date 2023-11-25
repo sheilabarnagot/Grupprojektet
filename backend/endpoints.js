@@ -21,7 +21,7 @@ router.get('/hello', (req, res) => {
 });
 
 router.post('/users', async (req, res) => {
-  const response = await client.query(query.users,[req.body.userId]);
+  const response = await client.query(query.users, [req.body.userId]);
   res.json(response.rows);
 });
 
@@ -197,12 +197,10 @@ router.get('/usercomment', async (req, res) => {
   console.log(response.rows);
 });
 
-
 // Lägg till POST-metoden för att hantera profiluppdateringar
-router.post('/editprofile/', async (req, res) => {
+router.post('/editprofile', async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const { email, username, password } = req.body;
+    const { email, username, password, userId } = req.body;
 
     const updateProfileQuery = {
       text: 'UPDATE users SET email = $1, username = $2, password = $3 WHERE userid = $4 RETURNING *',
@@ -224,7 +222,6 @@ router.post('/editprofile/', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
-
 
 router.post('/deleteaccount', async (req, res) => {
   console.log(req.body.userid);
