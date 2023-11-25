@@ -15,6 +15,7 @@ import { lazyWithPreload } from 'react-lazy-with-preload';
 const SpecifikUserPost = lazyWithPreload(
   () => import('./Posts/SpecifikUserPost.tsx')
 );
+import UserSettings from './UserSettings.tsx'; // Uppdatera med rätt sökväg
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <LoginPage />,
+      },
+      {
+        path: '/user-settings', // Lägg till ny rutt för UserSettings
+        element: <UserSettings />,
       },
       {
         path: '/gdpr',
