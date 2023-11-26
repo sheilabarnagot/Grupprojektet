@@ -7,7 +7,7 @@ const cors = require('cors');
 dotenv.config();
 
 const client = new Client({
-  connectionString: process.env.CONNECTION_STRING_DOCKER,
+  connectionString: process.env.CONNECTION_STRING_LOCAL,
   // port: 5432,
 });
 
