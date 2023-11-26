@@ -26,7 +26,7 @@ const LoginForm: React.FC = () => {
     console.log('submitted:', formData);
     try {
       const response = await axios
-        .post('http://172.160.242.104:8000/login', formData)
+        .post('http://localhost:3000/login', formData)
         .then(res => {
           setUserIdFromDatabase(res.data.user.userid);
           return res;

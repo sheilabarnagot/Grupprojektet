@@ -15,26 +15,23 @@ export const CreateComment = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e?: any, test?: number) => {
     e.preventDefault();
-    const reseponse = await fetch(
-      'http://172.160.242.104:8000/createusercomment',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          commentcontent: e.target[0].value,
-          postid: test,
-          userid: id,
-        }),
-      }
-    );
+    const reseponse = await fetch('http://localhost:3000/createusercomment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        commentcontent: e.target[0].value,
+        postid: test,
+        userid: id,
+      }),
+    });
     await reseponse.json();
     navigate(-1);
   };
 
   const getPost = async () => {
-    await fetch('http://172.160.242.104:8000/post', {
+    await fetch('http://localhost:3000/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

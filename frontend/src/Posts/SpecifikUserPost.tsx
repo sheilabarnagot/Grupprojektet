@@ -10,16 +10,13 @@ const SpecifikUserPost = () => {
   const [comments, setComments] = useState<any>([]);
 
   const getPosts = async () => {
-    const response = await fetch(
-      'http://172.160.242.104:8000/specifikPostComment',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          postid: useLoaderDataFunc[0].postid,
-        }),
-      }
-    );
+    const response = await fetch('http://localhost:3000/specifikPostComment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        postid: useLoaderDataFunc[0].postid,
+      }),
+    });
 
     const result = await response.json();
 
