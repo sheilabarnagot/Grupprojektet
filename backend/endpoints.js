@@ -7,8 +7,8 @@ const cors = require('cors');
 dotenv.config();
 
 const client = new Client({
-  connectionString: process.env.CONNECTION_STRING_AZURE,
-  port: 5433,
+  connectionString: process.env.CONNECTION_STRING_LOCAL,
+  port: 5432,
 });
 
 client.connect(function (err) {

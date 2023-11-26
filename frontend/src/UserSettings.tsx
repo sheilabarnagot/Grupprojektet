@@ -47,6 +47,8 @@ const UserSettings = () => {
     event.preventDefault();
     setEmail(event.currentTarget[0].value);
     try {
+      console.log(username, password, email);
+
       const response = await fetch(`http://localhost:3000/editprofile`, {
         method: "POST",
         headers: {
