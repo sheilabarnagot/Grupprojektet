@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -8,6 +8,7 @@ interface Props {
   postId: number;
   commentId: number;
   id: number | undefined;
+  userName: string;
 }
 
 export const CommentReply = ({
@@ -15,14 +16,15 @@ export const CommentReply = ({
   postId,
   commentId,
   id,
+  userName,
 }: Props) => {
   const [show, setShow] = useState(false);
-  const [userName, setUsername] = useState<any>();
   const [commentOnComment, setCommentOnComment] = useState<any>();
+
   const handleClose = () => setShow(false);
   const handleShow = async () => {
     setShow(true);
-    console.log(commentId);
+
     await getComment();
   };
 
@@ -39,7 +41,7 @@ export const CommentReply = ({
       }),
     };
     const response = await fetch(
-      'http://localhost:3000//createusercomment',
+      'http://172.160.242.104:8000/createusercomment',
       option
     );
     const result = await response.json();
@@ -57,23 +59,16 @@ export const CommentReply = ({
         }),
       };
       const response = await fetch(
-        'http://localhost:3000/commentoncomment',
+        'http://172.160.242.104:8000/commentoncomment',
         options
       );
       const result = await response.json();
-      console.log(result);
+
       setCommentOnComment(result);
     } catch (error) {
       console.log(error);
     }
   }
-
-  useEffect(() => {
-    const userName = JSON.parse(localStorage.getItem('userName') || '');
-    if (userName) {
-      setUsername(userName);
-    }
-  });
 
   return (
     <>
@@ -111,24 +106,19 @@ export const CommentReply = ({
             placeholder="Leave a comment here"
             style={{ height: '100px' }}
           />
-          <Button
-            style={{ backgroundColor: 'black' }}
-            as="input"
-            type="submit"
-            value="Send"
-          />
+
+          <Modal.Footer style={{ backgroundColor: 'black' }}>
+            <Button
+              style={{ backgroundColor: 'black' }}
+              as="input"
+              type="submit"
+              value="Send"
+            />
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
         </Form>
-        <Modal.Footer style={{ backgroundColor: 'black' }}>
-          <Button
-            variant="secondary"
-            style={{ backgroundColor: 'orange' }}
-            onClick={handleClose}>
-            Close
-          </Button>
-          <Button style={{ backgroundColor: 'orange' }} onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

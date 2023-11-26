@@ -3,7 +3,7 @@ var cors = require('cors');
 const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
-const port = process.env.EXPRESS_PORT_LOCAL;
+const port = process.env.EXPRESS_PORT_DOCKER;
 const router = require('./endpoints');
 
 app.use(cors());

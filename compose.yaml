@@ -7,21 +7,21 @@ services:
     environment:
       - PGURI=${CONNECTION_STRING_DOCKER}
     ports:
-      - "8000:8000"
+      - '8000:8000'
   frontend:
     build: web
     ports:
-      - "8080:80"
+      - '80:80'
   database:
     image: postgres
     restart: always
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
-      - "5433:5432"
+      - '5432:5432'
     healthcheck:
       interval: 1s
-      test: "pg_isready --username=postgres"
+      test: 'pg_isready --username=postgres'
     volumes:
       - ./data:/var/lib/postgresql/data
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql

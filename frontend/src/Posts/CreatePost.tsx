@@ -1,11 +1,12 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState, useEffect } from 'react';
-// yest
-export const CreatePost = () => {
+import { useNavigate } from 'react-router-dom';
+const CreatePost = () => {
   const [isSent, setIsSent] = useState(false);
   const [validation, setValidation] = useState(false);
   const [id, setId] = useState();
+  const navigate = useNavigate();
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
@@ -29,15 +30,15 @@ export const CreatePost = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        'http://localhost:3000/createforumpost',
-        option
-      );
-      const result = await response.json();
+      const response =
+        validation &&
+        (await fetch('http://172.160.242.104:8000/createforumpost', option));
+      const result = response && (await response.json());
       result.rowCount === 1 ? setIsSent(!isSent) : setIsSent(false);
-      console.log(result);
     } catch (error) {
       console.log('error');
+    } finally {
+      navigate('/');
     }
   };
 
@@ -52,7 +53,6 @@ export const CreatePost = () => {
     if (items) {
       setId(items);
     }
-    console.log(items);
   }, []);
 
   return (
@@ -61,10 +61,17 @@ export const CreatePost = () => {
         <h1 className="mt-16">Create Post</h1>
         {isSent && <p>success</p>}
         <Form onSubmit={handleSubmit} className="w-50">
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
             <Form.Label>Title</Form.Label>
             <Form.Control type="text" name="title" placeholder="" />
           </Form.Group>
+          <div className="relative h-5 mb-2 mt-0">
+            {!validation && (
+              <p className="{!validation && 'hidden'}">
+                Choose a topic before submitting
+              </p>
+            )}
+          </div>
           <Form.Select
             onChange={handleTopicChange}
             name="topic"
@@ -75,7 +82,7 @@ export const CreatePost = () => {
             <option value="Computers">Computers</option>
           </Form.Select>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-            <Form.Label>Example textarea</Form.Label>
+            <Form.Label>Content</Form.Label>
             <Form.Control
               name="postcontent"
               style={{ height: '500px' }}
@@ -83,7 +90,7 @@ export const CreatePost = () => {
               rows={3}
             />
           </Form.Group>
-          <div className="flex justify-center">
+          <div className="flex flex-col items-center justify-center">
             <Button
               style={{ width: 400 }}
               as="input"
@@ -92,10 +99,11 @@ export const CreatePost = () => {
               value="Submit"
               // disabled={isSent || !validation}
             />
-            <input type="submit" value="YOO" />
           </div>
         </Form>
       </div>
     </>
   );
 };
+
+export default CreatePost;

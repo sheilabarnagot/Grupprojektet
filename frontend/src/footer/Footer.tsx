@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="footer bg-gray-300 p-3 mt-20">
+    <footer className="footer bg-gray-300 p-3 sticky w-full bottom-0 ">
       <Container>
         <Row>
           <Col className="text-center">

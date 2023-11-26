@@ -15,36 +15,36 @@ export const CreateComment = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e?: any, test?: number) => {
     e.preventDefault();
-    const reseponse = await fetch('http://localhost:3000//createusercomment', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        commentcontent: e.target[0].value,
-        postid: test,
-        userid: id,
-      }),
-    });
-    const data = await reseponse.json();
-    console.log(data);
-    console.log(e.target[0].value);
+    const reseponse = await fetch(
+      'http://172.160.242.104:8000/createusercomment',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          commentcontent: e.target[0].value,
+          postid: test,
+          userid: id,
+        }),
+      }
+    );
+    await reseponse.json();
     navigate(-1);
   };
 
   const getPost = async () => {
-    await fetch('http://localhost:3000/post', {
+    await fetch('http://172.160.242.104:8000/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        postid: id,
+        postid: postid.pathname.split('/')[3],
       }),
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data.rows);
         setResult(data.rows);
       });
   };
@@ -55,14 +55,12 @@ export const CreateComment = () => {
       setId(items);
     }
   }, []);
-
   useEffect(() => {
     getPost();
-  }, [id]);
+  }, []);
 
-  console.log(result && result);
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex h-screen flex-col items-center justify-center">
       {result &&
         result.map((item: any, i: number) => {
           return (
