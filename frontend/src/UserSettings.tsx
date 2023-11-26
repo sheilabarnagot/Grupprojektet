@@ -1,16 +1,17 @@
-import { useState, useEffect } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { useState, useEffect } from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 const UserSettings = () => {
   // Tillstånd för användaruppgifter
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [userId, setuserId] = useState('');
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [userId, setuserId] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     // Hämta användaruppgifter som finns
-    const Id = localStorage.getItem('items');
+    const Id = localStorage.getItem("items");
     if (Id) {
       setuserId(Id);
     }
@@ -20,20 +21,21 @@ const UserSettings = () => {
   const getUserData = async (Id: any) => {
     try {
       const response = await fetch(`http://localhost:3000/users`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ userId: Id }),
       });
       if (!response.ok) {
-        throw new Error('Failed to fetch user data');
+        throw new Error("Failed to fetch user data");
       }
       const data = await response.json();
       setEmail(data[0].email);
       setUsername(data[0].username);
+      setPassword(data[0].password);
     } catch (error) {
-      console.error('Error fetching user profile:', error);
+      console.error("Error fetching user profile:", error);
     }
   };
 
@@ -41,28 +43,28 @@ const UserSettings = () => {
     event.preventDefault();
     try {
       const response = await fetch(`http://localhost:3000/editprofile`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: event.nativeEvent.srcElement[0].value,
-          username: event.nativeEvent.srcElement[1].value,
-          password: event.nativeEvent.srcElement[2].value,
+          email: event.nativeEvent.srcElement[0].value || email,
+          username: event.nativeEvent.srcElement[1].value || username,
+          password: event.nativeEvent.srcElement[2].value || password,
           userId,
         }),
       });
       if (response.ok) {
-        alert('Profilen har uppdaterats!');
+        alert("Profilen har uppdaterats!");
         const result = await response.json();
         // console.log(result.user.userid);
         setuserId(result.user.userid);
       } else {
         const errorData = await response.json();
-        console.error('Error saving user profile:', errorData.message);
+        console.error("Error saving user profile:", errorData.message);
       }
     } catch (error) {
-      console.error('Error saving user profile:', error);
+      console.error("Error saving user profile:", error);
     }
   };
 
@@ -72,7 +74,7 @@ const UserSettings = () => {
 
   return (
     <div className="flex justify-center h-screen">
-      <Form onSubmit={event => handleSaveChanges(event)}>
+      <Form onSubmit={(event) => handleSaveChanges(event)}>
         <Form.Group className="mb-3" controlId="formGroupEmail">
           <Form.Label>
             <span className="text-white">{email && email}</span>
