@@ -41,7 +41,7 @@ export const CommentReply = ({
       }),
     };
     const response = await fetch(
-      'http://localhost:8000/createusercomment',
+      'http://172.160.242.104:8000/createusercomment',
       option
     );
     const result = await response.json();
@@ -59,11 +59,11 @@ export const CommentReply = ({
         }),
       };
       const response = await fetch(
-        'http://localhost:8000/commentoncomment',
+        'http://172.160.242.104:8000/commentoncomment',
         options
       );
       const result = await response.json();
-      console.log(result);
+
       setCommentOnComment(result);
     } catch (error) {
       console.log(error);

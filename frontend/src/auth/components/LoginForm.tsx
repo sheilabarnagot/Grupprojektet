@@ -13,7 +13,6 @@ const LoginForm: React.FC = () => {
     password: '',
   });
   const [userIdFromDatabase, setUserIdFromDatabase] = useState();
-  console.log({ isLoggedIn, setIsLoggedInContext });
 
   const navigate = useNavigate();
 
@@ -27,7 +26,7 @@ const LoginForm: React.FC = () => {
     console.log('submitted:', formData);
     try {
       const response = await axios
-        .post('http://localhost:8000/login', formData)
+        .post('http://172.160.242.104:8000/login', formData)
         .then(res => {
           setUserIdFromDatabase(res.data.user.userid);
           return res;
@@ -46,6 +45,7 @@ const LoginForm: React.FC = () => {
       setIsLoggedInContext(true),
       navigate('/'),
       localStorage.setItem('isLoggedIn', JSON.stringify(true)));
+    console.log(isLoggedIn);
   });
 
   return (

@@ -39,26 +39,23 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
   const handleClose = () => setModal(false);
 
   const handleDelete = async () => {
-    console.log({ isLoggedIn });
-    const response = await fetch('http://localhost:8000/deleteaccount', {
+    const response = await fetch('http://172.160.242.104:8000/deleteaccount', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ userid: item }),
     });
-    const result = await response.json();
+    await response.json();
 
     try {
       setIsLoggedInContext(false);
-      console.log({ result });
     } catch (error) {
       console.error('Error deleting account:', error);
     } finally {
       handleLogout(), setModal(false);
     }
   };
-  console.log({ isLoggedIn });
 
   useEffect(() => {
     const getitem = localStorage.getItem('items');
@@ -132,9 +129,9 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
                 style={{ minHeight: '75px', width: '100%' }}
                 navbarScroll>
                 <div className="flex w-full items-center justify-center">
-                  <Nav.Link as={NavLink} to="/" href="#action1">
+                  <Nav.Item as={NavLink} to="/">
                     Home
-                  </Nav.Link>
+                  </Nav.Item>
                   <NavDropdown title="Actions" id="navbarScrollingDropdown">
                     <NavDropdown.Item
                       disabled={!isLoggedInLocalStorage}
@@ -157,11 +154,10 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
                       <>
                         <NavDropdown.Divider />
                         <NavDropdown.Item
-                          disabled={!isLoggedInLocalStorage}
-                          href="#action3">
-                          <NavLink to="/user-settings" className="text-center">
-                            User settings
-                          </NavLink>
+                          to="/user-settings"
+                          as={NavLink}
+                          disabled={!isLoggedInLocalStorage}>
+                          User settings
                         </NavDropdown.Item>
                         <NavDropdown.ItemText>
                           <NavDropdown.Item

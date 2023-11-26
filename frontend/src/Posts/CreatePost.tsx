@@ -2,7 +2,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-export const CreatePost = () => {
+const CreatePost = () => {
   const [isSent, setIsSent] = useState(false);
   const [validation, setValidation] = useState(false);
   const [id, setId] = useState();
@@ -32,12 +32,13 @@ export const CreatePost = () => {
     try {
       const response =
         validation &&
-        (await fetch('http://localhost:8000/createforumpost', option));
+        (await fetch('http://172.160.242.104:8000/createforumpost', option));
       const result = response && (await response.json());
       result.rowCount === 1 ? setIsSent(!isSent) : setIsSent(false);
-      console.log(result);
     } catch (error) {
       console.log('error');
+    } finally {
+      navigate('/');
     }
   };
 
@@ -52,7 +53,6 @@ export const CreatePost = () => {
     if (items) {
       setId(items);
     }
-    console.log(items);
   }, []);
 
   return (
@@ -93,9 +93,6 @@ export const CreatePost = () => {
           <div className="flex flex-col items-center justify-center">
             <Button
               style={{ width: 400 }}
-              onClick={() => {
-                validation && navigate(-1);
-              }}
               as="input"
               variant={validation ? 'primary' : 'secondary'}
               type="submit"
@@ -108,3 +105,5 @@ export const CreatePost = () => {
     </>
   );
 };
+
+export default CreatePost;
