@@ -13,7 +13,6 @@ const RegisterConfirmation = ({ termsAccepted, setTermsAccepted }: Props) => {
   const [show, setShow] = useState(true);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const handleUserTerms = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
