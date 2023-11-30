@@ -2,8 +2,7 @@ import React from 'react';
 
 const GDPRInfo: React.FC = () => {
   return (
-    <div className="mt-8 mx-4 text-center">
-      <h1 className="text-2xl font-bold mb-4">STRUKTUR FÖR OSS</h1>
+    <div className="mt-8 mx-4 text-justify">
       <h2 className="text-xl font-bold mb-2">
         Integritetsskydd och Användning av Cookies
       </h2>
@@ -64,11 +63,12 @@ const GDPRInfo: React.FC = () => {
         4. Tredje part och datadelning:
       </h3>
       <p className="mb-4">
-        Det är viktigt att informera användarna om deras personuppgifter kommer
-        att delas med tredje part. Om din webbapp använder tredjepartstjänster
-        som också samlar in data är det viktigt att förklara detta i
-        integritetspolicyn. Ange detaljer om vilken typ av data som delas, med
-        vem och för vilket ändamål.
+        Vi delar inte dina personuppgifter med tredje part utan ditt samtycke.
+        Vi kan dock dela din information med myndigheter om det krävs enligt
+        lag. Vi kan också dela din information med tredje part om det är
+        nödvändigt för att tillhandahålla våra tjänster. Vi strävar efter att
+        säkerställa att dina uppgifter behandlas säkert och endast används för
+        det ändamål de samlades in för.
       </p>
 
       <h3 className="text-lg font-bold mb-2">
@@ -90,41 +90,28 @@ const GDPRInfo: React.FC = () => {
 
       <h3 className="text-lg font-bold mb-2">7. Användarrättigheter:</h3>
       <p className="mb-4">
-        Förtydliga de rättigheter som användare har angående sina
-        personuppgifter. Detta kan innefatta rätten att få tillgång till,
-        korrigera, radera och portera dina data. Att tillhandahålla information
-        om hur man utövar dessa rättigheter förstärker transparensen och visar
-        engagemang för användarnas integritet.
+        Du har rätt som användare av vår tjänst att ändra, rader dina
+        personuppgifter. Samt att flytta över dina uppgifter till liknande
+        tjänster.
       </p>
 
       <h3 className="text-lg font-bold mb-2">
         8. Ändringar av integritetspolicyn:
       </h3>
       <p className="mb-4">
-        Ange att integritetspolicyn kan komma att uppdateras då och då och hur
-        dessa ändringar kommer att meddelas. Det är viktigt att inhämta aktivt
-        samtycke från användare för framtida uppdateringar av
-        integritetspolicyn.
-      </p>
-
-      <h3 className="text-lg font-bold mb-2">
-        9. Länkar till tredjepartspolicyer:
-      </h3>
-      <p className="mb-4">
-        Om din webbapp innehåller länkar till tredje parts webbplatser, vänligen
-        förtydliga att integritetspolicyn och användningen av cookies endast
-        gäller din webbplats. Uppmuntra användare att granska integritetspolicyn
-        för alla webbplatser som de kan hänvisas till via externa länkar.
+        Vi rekommenderar att du regelbundet granskar denna policy för att hålla
+        dig uppdaterad om eventuella ändringar. Vi kommer även meddela er via
+        mail om ändringar sker.
       </p>
 
       <h3 className="text-lg font-bold mb-2">
         10. Process för erhållande av samtycke:
       </h3>
       <p className="mb-4">
-        Förklara hur samtycke erhålls från användare, särskilt om samtycke är
-        den rättsliga grunden för databehandling. Du kan nämna användningen av
-        kryssrutor eller någon annan mekanism du använder för att säkerställa
-        att användare aktivt och medvetet ger sitt samtycke.
+        Vid registrering behöver du godkänna att vi lagrar dina personuppgifter.
+        Detta gör du genom att kryssa i en ruta som säger att du godkänner. Vi
+        länkar även till detta dokument så att du kan läsa igenom det innan
+        registrering.
       </p>
 
       {/* <h3 className="text-lg font-bold mb-2">Din Kontroll:</h3>

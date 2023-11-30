@@ -39,7 +39,7 @@ export const Nav_bar = ({ isLoggedIn, setIsLoggedInContext }: Props) => {
   const handleClose = () => setModal(false);
 
   const handleDelete = async () => {
-    const response = await fetch('http://localhost:3000/deleteaccount', {
+    const response = await fetch('http://172.160.242.104:8000/deleteaccount', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
