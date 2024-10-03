@@ -1,7 +1,7 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import { Button } from 'react-bootstrap';
+import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Modal from "react-bootstrap/Modal";
+import { Button } from "react-bootstrap";
 
 interface Post {
   posts: {
@@ -25,41 +25,58 @@ interface IndividualPost {
 
 export const GetAllPosts = ({ posts }: Post) => {
   const [showA, setShowA] = useState(false);
-  const [getIsLoggedIn, setIsLoggedIn] = useState('');
+  const [getIsLoggedIn, setIsLoggedIn] = useState("");
   const navigate = useNavigate();
+
   useEffect(() => {
-    const getIsLoggedIn = localStorage.getItem('isLoggedIn');
+    const getIsLoggedIn = localStorage.getItem("isLoggedIn");
     if (getIsLoggedIn) setIsLoggedIn(getIsLoggedIn);
   }, []);
 
   const toggleShowA = () => setShowA(!showA);
+
   return (
     <>
       <div className="flex flex-col items-center">
+        {/* Welcome Section */}
+        <div className="w-full p-8 text-center mb-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg shadow-lg">
+          <h1 className="text-6xl font-bold text-white">
+            Welcome to Our Community!
+          </h1>
+          <p className="text-xl mt-4 text-white max-w-2xl mx-auto">
+            We are thrilled to have you here! Explore the latest posts and join
+            the conversation.
+          </p>
+        </div>
+
+        {/* Latest Posts */}
         <h1 className="text-5xl mt-4">Latest Posts</h1>
         <div>
           <Modal show={showA} onHide={toggleShowA}>
             <Modal.Header
               style={{
-                backgroundColor: '#1a202c',
+                backgroundColor: "#1a202c",
               }}
-              closeButton>
+              closeButton
+            >
               <Modal.Title>Modal heading</Modal.Title>
             </Modal.Header>
             <Modal.Body
               style={{
-                backgroundColor: '#1a202c',
-              }}>
+                backgroundColor: "#1a202c",
+              }}
+            >
               You have to be logged in to view this post
             </Modal.Body>
             <Modal.Footer
               style={{
-                backgroundColor: '#1a202c',
-              }}>
+                backgroundColor: "#1a202c",
+              }}
+            >
               <Button variant="secondary" onClick={toggleShowA}>
                 Close
               </Button>
-              <Button variant="primary" onClick={() => navigate('/login')}>
+              <Button variant="primary" onClick={() => navigate("/login")}>
                 Login
               </Button>
             </Modal.Footer>
@@ -72,7 +89,7 @@ export const GetAllPosts = ({ posts }: Post) => {
               .map((post: IndividualPost) => {
                 const ingress =
                   post.postcontent &&
-                  post.postcontent.split(' ').slice(0, 3).join(' ');
+                  post.postcontent.split(" ").slice(0, 3).join(" ");
 
                 return (
                   <div key={post.postid}>
@@ -81,7 +98,8 @@ export const GetAllPosts = ({ posts }: Post) => {
                         to={
                           getIsLoggedIn &&
                           `/posts/${post.userid}/${post.postid}`
-                        }>
+                        }
+                      >
                         <div className="flex items-center">
                           <p className="m-0 text-3xl pr-3">{post.title}</p>
                           <p>By: {post.username}</p>
