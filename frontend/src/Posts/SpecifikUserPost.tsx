@@ -1,7 +1,7 @@
-import { NavLink } from 'react-router-dom';
-import { useLoaderData } from 'react-router-dom';
-import { CommentReply } from './comments/CommentReply';
-import { useEffect, useState } from 'react';
+import { NavLink } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
+import { CommentReply } from "./comments/CommentReply";
+import { useEffect, useState } from "react";
 
 const SpecifikUserPost = () => {
   const useLoaderDataFunc: any = useLoaderData();
@@ -10,9 +10,9 @@ const SpecifikUserPost = () => {
   const [comments, setComments] = useState<any>([]);
 
   const getPosts = async () => {
-    const response = await fetch('http://localhost:3000/specifikPostComment', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("http://localhost:3000/specifikPostComment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         postid: useLoaderDataFunc[0].postid,
       }),
@@ -24,7 +24,7 @@ const SpecifikUserPost = () => {
   };
 
   useEffect(() => {
-    const items = JSON.parse(localStorage.getItem('items') || '');
+    const items = JSON.parse(localStorage.getItem("items") || "");
 
     if (items) {
       setId(items);
@@ -51,8 +51,9 @@ const SpecifikUserPost = () => {
             <div className="flex flex-col items-center">
               <h1 className="mt-4">Comments</h1>
               <NavLink
-                style={{ color: 'orange' }}
-                to={`/post/createpost/${useLoaderDataFunc[0].postid}`}>
+                style={{ color: "orange" }}
+                to={`/post/createpost/${useLoaderDataFunc[0].postid}`}
+              >
                 Comment this post
               </NavLink>
             </div>
@@ -68,7 +69,7 @@ const SpecifikUserPost = () => {
                         {item.commentcontent && (
                           <>
                             <div className="flex justify-center">
-                              <p className="pr-10">{item.username + ':'}</p>
+                              <p className="pr-10">{item.username + ":"}</p>
                               <p>{item.commentcontent}</p>
                             </div>
                             <div className="items-end"></div>
