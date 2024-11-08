@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
 
@@ -32,11 +32,14 @@ export const GetAllPosts = ({ posts }: Post) => {
 
   const toggleShowA = () => setShowA(!showA);
 
-  const handleLike = (postid: number) => {
-    const updatedLikes = { ...likes, [postid]: (likes[postid] || 0) + 1 };
-    setLikes(updatedLikes);
-    localStorage.setItem("likes", JSON.stringify(updatedLikes));
-  };
+  const handleLike = useCallback(
+    (postid: number) => {
+      const updatedLikes = { ...likes, [postid]: (likes[postid] || 0) + 1 };
+      setLikes(updatedLikes);
+      localStorage.setItem("likes", JSON.stringify(updatedLikes));
+    },
+    [likes]
+  );
 
   return (
     <>

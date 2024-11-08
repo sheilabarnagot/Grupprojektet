@@ -10,7 +10,7 @@ import LoginPage from "./auth/pages/LoginPage.tsx";
 import Footer from "./footer/Footer.tsx";
 import { CreateComment } from "./Posts/CreateComment.tsx";
 import { lazyWithPreload } from "react-lazy-with-preload";
-import UserSettings from "./UserSettings.tsx"; // Uppdatera med rätt sökväg
+import UserSettings from "./UserSettings.tsx";
 const SpecifikUserPost = lazyWithPreload(
   () => import("./Posts/SpecifikUserPost.tsx")
 );
