@@ -20,6 +20,7 @@ export const GetAllPosts = ({ posts }: Post) => {
   const [showA, setShowA] = useState(false);
   const [getIsLoggedIn, setIsLoggedIn] = useState("");
   const [likes, setLikes] = useState<{ [key: number]: number }>({});
+  const [visiblePosts, setVisiblePosts] = useState(9);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,6 +41,11 @@ export const GetAllPosts = ({ posts }: Post) => {
     },
     [likes]
   );
+
+  // Funktion för att visa fler inlägg
+  const handleShowMore = () => {
+    setVisiblePosts((prevVisiblePosts) => prevVisiblePosts + 9); // Visa 9 inlägg till
+  };
 
   return (
     <>
@@ -70,7 +76,7 @@ export const GetAllPosts = ({ posts }: Post) => {
 
           {posts &&
             posts
-              .slice(Math.max(posts.length - 9, 1))
+              .slice(Math.max(posts.length - visiblePosts, 0))
               .reverse()
               .map((post: IndividualPost) => {
                 const ingress =
@@ -128,6 +134,22 @@ export const GetAllPosts = ({ posts }: Post) => {
                 );
               })}
         </div>
+        {visiblePosts < posts.length && (
+          <button
+            onClick={handleShowMore}
+            style={{
+              backgroundColor: "#007bff",
+              color: "white",
+              border: "none",
+              padding: "10px 15px",
+              borderRadius: "5px",
+              cursor: "pointer",
+              margin: "20px 0",
+            }}
+          >
+            Visa fler
+          </button>
+        )}
       </div>
     </>
   );
